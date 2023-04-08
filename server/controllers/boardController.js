@@ -1,4 +1,4 @@
-const Board = require('../models/BoardModel')
+const Board = require('../models/boardModel')
 
 const getBoards = async (req, res) => {
 	let user_id = req.user._id
