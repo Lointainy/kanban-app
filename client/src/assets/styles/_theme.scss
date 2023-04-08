@@ -1,0 +1,39 @@
+$light: (
+  bg: $color-very-light-grey,
+  btnPr: $color-main-purple,
+  btnPrHover: $color-main-purple-hover,
+  btnSec: #{$color-main-purple + '1A'},
+  btnSecHover: #{$color-main-purple + '40'},
+  title: $color-black,
+  subTitle: $color-medium-grey,
+  fieldBg: $color-white,
+  lineBg: $color-lines-light,
+);
+
+$dark: (
+  bg: $color-very-dark-grey,
+  btnPr: $color-main-purple,
+  btnPrHover: $color-main-purple-hover,
+  btnSec: $color-white,
+  btnSecHover: $color-white,
+  title: $color-white,
+  subTitle: $color-medium-grey,
+  fieldBg: $color-dark-grey,
+  lineBg: $color-lines-dark,
+);
+
+.dark-theme {
+  @each $name, $color in $dark {
+    --color-#{""+$name}: #{$color};
+  }
+}
+
+.light-theme {
+  @each $name, $color in $light {
+    --color-#{""+$name}: #{$color};
+  }
+}
+
+@function color($getColor) {
+  @return var(--color-#{$getColor});
+}

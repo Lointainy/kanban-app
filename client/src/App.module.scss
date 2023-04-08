@@ -1,0 +1,19 @@
+@import '@styles/main';
+
+.app {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 300px 1fr;
+  grid-template-rows: 100px 1fr;
+  grid-template-areas:
+    'header header'
+    'sidebar content';
+  height: 100vh;
+  background: color(bg);
+}
+
+.content {
+  grid-area: content;
+  overflow-y: hidden;
+  padding: 1.5rem;
+}

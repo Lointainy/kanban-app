@@ -1,0 +1,44 @@
+@import '@styles/main';
+
+.header {
+  grid-area: header;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 16.75rem 1fr minmax(160px, max-content) max-content;
+  align-items: center;
+  background: color(fieldBg);
+  border-bottom: 1px solid color(lineBg);
+  column-gap: 1.5rem;
+  padding: 0rem 2rem;
+  border-bottom: 1px solid color(lineBg);
+}
+
+.logo {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  border-right: 1px solid color(lineBg);
+
+  img {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.title {
+  color: color(title);
+}
+
+.btn {
+  @include btn-primary-l;
+}
+
+.option {
+  color: color(subTitle);
+  &__btn {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

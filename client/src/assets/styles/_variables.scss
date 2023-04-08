@@ -1,0 +1,56 @@
+/* Colors */
+$color-black: #000112;
+$color-very-dark-grey: #20212c;
+$color-dark-grey: #2b2c37;
+$color-lines-dark: #3e3f4e;
+$color-medium-grey: #828fa3;
+$color-lines-light: #e4ebfa;
+$color-very-light-grey: #f4f7fd;
+$color-white: #ffffff;
+$color-main-purple: #635fc7;
+$color-main-purple-hover: #a8a4ff;
+$color-red: #ea5555;
+$color-red-hover: #ff9898;
+
+$border-radius: 0.375rem;
+
+/* Animation */
+$animate: ease-in-out 0.5s;
+
+/* Container & Media */
+
+$container-mw: 1110px !default; // width container
+$grid-columns: 12 !default; // numbers columns
+$grid-space: 80px; // margin
+$grid-space-side: calc($grid-space / 2); // margin one side
+
+// DON`T TOUCH
+$grid-bp: (
+  xs: 0px,
+  // Extra small screen / phone
+  sm: 576px,
+  // Small screen / phone
+  md: 768px,
+  // Medium screen / tablet
+  lg: 992px,
+  // Large screen / desktop
+  xl: 1200px,
+  // Extra large screen / wide desktop
+  xxl: 1400px,
+  // Extra large screen / wide desktop
+) !default;
+
+$media-value: (
+  mx: max,
+  // desctop first
+  mn: min,
+  // mobile first
+) !default;
+
+//default breakpoits for container width values
+$container-value: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: $container-mw,
+);

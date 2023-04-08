@@ -1,0 +1,41 @@
+@import '@styles/main';
+
+.task {
+  display: grid;
+  grid-auto-flow: row;
+  grid-auto-rows: max-content;
+  justify-content: start;
+  row-gap: 0.5rem;
+  padding: 16px 16px;
+  background: color(fieldBg);
+  border-radius: $border-radius;
+}
+
+.title {
+  white-space: nowrap; /* запобігаємо перенесенню рядків */
+  overflow: hidden; /* ховаємо текст, що виходить за межі блоку */
+  text-overflow: ellipsis; /* додаємо трьохкрапку в кінці */
+  color: color(title);
+}
+
+.subtitle {
+  @include body-m;
+  color: color(subTitle);
+}
+
+.task {
+  user-select: none;
+
+  &:hover {
+    outline: 1px solid $color-main-purple;
+    cursor: grab;
+    transition: $animate;
+    .title {
+      color: $color-main-purple;
+    }
+  }
+
+  &:active {
+    cursor: grabbing;
+  }
+}

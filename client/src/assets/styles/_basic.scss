@@ -1,0 +1,27 @@
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+h1 {
+  @include heading-xl;
+}
+
+h2 {
+  @include heading-l;
+}
+
+h3 {
+  @include heading-m;
+}
+
+h4 {
+  @include heading-s;
+}
+
+p {
+  @include body-l;
+}
+
+p.bold {
+  @include body-m;
+}
