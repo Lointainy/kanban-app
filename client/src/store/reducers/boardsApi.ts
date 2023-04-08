@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { RootState } from '../store'
 
-const API_URL = 'http://localhost:3500/api/boards'
+const API_URL = import.meta.env.VITE_API_URL
 
 export const boardsApi = createApi({
   reducerPath: 'boardsApi',
@@ -19,13 +19,13 @@ export const boardsApi = createApi({
   endpoints: (builder) => ({
     updateBoard: builder.mutation({
       query: ({ id, board }) => ({
-        url: `/${id}`,
+        url: `/boards/${id}`,
         method: 'PATCH',
         body: board,
       }),
     }),
     getBoards: builder.query({
-      query: () => `/`,
+      query: () => `/boards`,
     }),
   }),
 })
