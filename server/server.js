@@ -16,15 +16,6 @@ const { swaggerDoc, optionDoc } = require('./doc/documentation')
 const app = express()
 const PORT = process.env.PORT || 3500
 
-/* Cors */
-
-app.use(
-	cors({
-		methods: ['GET', 'POST', 'PUT', 'PATCH']
-		// origin: ['http://localhost:5173', 'http://192.168.0.100:5173']
-	})
-)
-
 // Home page
 app.get('/', (req, res) => {
 	res.redirect('/docs')
@@ -32,6 +23,15 @@ app.get('/', (req, res) => {
 
 /* Swagger UI */
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDoc, optionDoc))
+
+/* Cors */
+
+app.use(
+	cors({
+		methods: '*'
+		// origin: ['http://localhost:5173', 'http://192.168.0.100:5173']
+	})
+)
 
 /* Middleware */
 app.use((req, res, next) => {
@@ -41,6 +41,7 @@ app.use((req, res, next) => {
 	res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
 	next()
 })
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
@@ -59,4 +60,3 @@ const startServer = async () => {
 }
 
 startServer()
-
