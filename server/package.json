@@ -1,0 +1,25 @@
+{
+	"name": "kanban-server",
+	"version": "1.0.0",
+	"description": "",
+	"main": "server.js",
+	"scripts": {
+		"start": "node server.js",
+		"server": "nodemon server.js"
+	},
+	"author": "Eugene",
+	"license": "ISC",
+	"dependencies": {
+		"bcrypt": "^5.1.0",
+		"cors": "^2.8.5",
+		"dotenv": "^16.0.3",
+		"express": "^4.18.2",
+		"jsonwebtoken": "^9.0.0",
+		"mongoose": "^7.0.3",
+		"swagger-ui-express": "^4.6.2",
+		"validator": "^13.9.0"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.22"
+	}
+}
