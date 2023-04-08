@@ -4,7 +4,7 @@
 
 - [Overview](#overview)
   - [Preview](https://kanban-app-react-lointainy.netlify.app/)
-  - [API](https://kanban-server-git-master-lointainy.vercel.app/)
+  - [API](https://kanban-app-server-git-master-lointainy.vercel.app/)
 - [My process](#my-process)
   - [Built with](#built-with)
   - [What I learned](#what-i-learned)

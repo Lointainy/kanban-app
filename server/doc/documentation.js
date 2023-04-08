@@ -15,10 +15,10 @@ const swaggerDoc = {
 	},
 	servers: [
 		{
-			url: 'http://localhost:3500/api'
+			url: 'https://kanban-app-server.vercel.app/api'
 		},
 		{
-			url: 'https://kanban-server.vercel.app/api'
+			url: 'http://localhost:3500/api'
 		}
 	],
 	tags: [
