@@ -1,0 +1,35 @@
+@import '@styles/main';
+
+label {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 16px 1fr;
+  justify-content: start;
+  align-items: center;
+  column-gap: 1rem;
+  padding: 0.75rem;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+input {
+  display: none;
+}
+
+.checkbox {
+  height: 16px;
+  background: color(fieldBg);
+  border-radius: calc($border-radius/2);
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: color(fieldBg);
+  transition: $animate;
+}
+
+input:checked + .checkbox {
+  background: $color-main-purple;
+}

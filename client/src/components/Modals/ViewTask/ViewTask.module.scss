@@ -176,7 +176,7 @@
     display: grid;
     grid-auto-flow: row;
     width: 100%;
-    background: color(bg);
+    background: color(fieldBg);
     border-radius: $border-radius;
 
     &_list {

@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { useEffect, useState } from 'react'
 
 /* Store */
@@ -13,7 +15,8 @@ import style from './ViewTask.module.scss'
 
 /* Icons */
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
-import { openModal } from '@/store/reducers/modalSlice'
+import { openModal } from '@store/reducers/modalSlice'
+import CheckBox from '@/components/Standard/CheckBox/CheckBox'
 
 const ViewTask: React.FC = (props) => {
   const dispatch = useAppDispatch()
@@ -91,11 +94,11 @@ const ViewTask: React.FC = (props) => {
         {task.subtasks.map((subtask) => {
           return (
             <li className={style.subtasks__item} key={subtask._id}>
-              <label>
-                <input type="checkbox" checked={subtask.isCompleted} onChange={() => onChangeSubtask(subtask._id)} />
-                <span className={style.checkbox}>{subtask.isCompleted && <Icon icon="check" />}</span>
-                <span className={style.subtasks__title}>{subtask.title}</span>
-              </label>
+              <CheckBox
+                checked={subtask.isCompleted}
+                onChange={() => onChangeSubtask(subtask._id)}
+                title={subtask.title}
+              />
             </li>
           )
         })}
