@@ -36,7 +36,8 @@ const Header: React.FC = () => {
         </NavLink>
       </div>
 
-      <h1 className={style.title}>{pathname === '/' ? 'Home Page' : boardTitle}</h1>
+      <h1 className={style.title}>{pathname.includes('/board/') && boardTitle}</h1>
+
       <button className={style.btn} onClick={() => dispatch(openModal({ name: 'AddNewTask' }))}>
         <Icon icon="plus" />
         <span>Add new task</span>
