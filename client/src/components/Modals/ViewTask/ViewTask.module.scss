@@ -136,12 +136,6 @@
     }
   }
 
-  &__title {
-    @include body-m;
-    color: color(title);
-    opacity: 0.5;
-  }
-
   input:checked + &__title {
     text-decoration: line-through;
   }

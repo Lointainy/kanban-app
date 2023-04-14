@@ -1,6 +1,6 @@
 @import '@styles/main';
 
-label {
+.label {
   display: grid;
   grid-auto-flow: column;
   grid-template-columns: 16px 1fr;
@@ -14,7 +14,7 @@ label {
   }
 }
 
-input {
+.input {
   display: none;
 }
 
@@ -30,6 +30,12 @@ input {
   transition: $animate;
 }
 
-input:checked + .checkbox {
+.title {
+  @include body-m;
+  color: color(title);
+  opacity: 0.5;
+}
+
+.input:checked + .checkbox {
   background: $color-main-purple;
 }
