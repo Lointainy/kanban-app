@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 
 /* Router */
-import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
+import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 
 /* Store */
 import { useAppDispatch, useAppSelector } from '@hooks/useRedux'
@@ -25,7 +25,9 @@ import LoginPage from './pages/LoginPage/LoginPage'
 export const App: React.FC = () => {
   const dispatch = useAppDispatch()
 
+  // Routes
   const navigate = useNavigate()
+  const { pathname } = useLocation()
 
   // Get name of theme from localStorage or set default
   const { userTheme } = useTheme()
@@ -53,8 +55,13 @@ export const App: React.FC = () => {
     if (userLogined) {
       boards.refetch()
     }
+
+    // routes
     if (!userLogined) {
       navigate('/login')
+    }
+    if (userLogined && pathname.includes('/login')) {
+      navigate('/')
     }
   }, [userLogined, navigate])
 
