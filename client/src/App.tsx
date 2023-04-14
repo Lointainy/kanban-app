@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 
 /* Router */
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 
 /* Store */
 import { useAppDispatch, useAppSelector } from '@hooks/useRedux'
@@ -20,9 +20,12 @@ import { Modals } from '@components'
 
 /* Styles */
 import style from './App.module.scss'
+import LoginPage from './pages/LoginPage/LoginPage'
 
 export const App: React.FC = () => {
   const dispatch = useAppDispatch()
+
+  const navigate = useNavigate()
 
   // Get name of theme from localStorage or set default
   const { userTheme } = useTheme()
@@ -50,7 +53,10 @@ export const App: React.FC = () => {
     if (userLogined) {
       boards.refetch()
     }
-  }, [userLogined])
+    if (!userLogined) {
+      navigate('/login')
+    }
+  }, [userLogined, navigate])
 
   useEffect(() => {
     // If response success, set boards data to store
@@ -67,6 +73,7 @@ export const App: React.FC = () => {
       <div className={style.content}>
         <Routes>
           <Route index element={<HomePage />} />
+          <Route path={'/login'} element={<LoginPage />} />
           <Route path={'board/:boardId'} element={<BoardPage />} />
           <Route path={'*'} element={<NotFoundPage />} />
         </Routes>

@@ -1,8 +1,7 @@
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux'
-import { useLoginMutation, useSignupMutation } from '@/store/reducers/authApi'
+import { useLoginMutation } from '@/store/reducers/authApi'
 import { logout, setToken } from '@/store/reducers/authSlice'
-import { useGetBoardsQuery } from '@/store/reducers/boardsApi'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 const HomePage: React.FC = () => {
   const dispatch = useAppDispatch()
