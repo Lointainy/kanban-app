@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 
 /* Router */
-import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 
 /* Store */
 import { useAppDispatch, useAppSelector } from '@hooks/useRedux'
@@ -14,13 +14,12 @@ import { useGetBoardsQuery } from '@store/reducers/boardsApi'
 import useTheme from '@hooks/useTheme'
 
 /* Pages */
-import { BoardPage, HomePage, NotFoundPage } from '@pages'
+import { BoardPage, HomePage, NotFoundPage, SignUpPage, LoginPage } from '@pages'
 import { Header, Sidebar } from '@/layout'
 import { Modals } from '@components'
 
 /* Styles */
 import style from './App.module.scss'
-import LoginPage from './pages/LoginPage/LoginPage'
 
 export const App: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -55,11 +54,11 @@ export const App: React.FC = () => {
     if (userLogined) {
       boards.refetch()
     }
-
-    // routes
+    // if user is not loggined reset board
     if (!userLogined) {
-      navigate('/login')
+      dispatch(setBoards([]))
     }
+
     if (userLogined && pathname.includes('/login')) {
       navigate('/')
     }
@@ -73,7 +72,7 @@ export const App: React.FC = () => {
   }, [boards])
 
   return (
-    <div className={`${style.app} ${theme}`}>
+    <div className={`${style.app} ${theme} ${!userLogined && style.sidebar_open}`}>
       {modalOpen && <Modals />}
       <Header />
       <Sidebar />
@@ -81,6 +80,7 @@ export const App: React.FC = () => {
         <Routes>
           <Route index element={<HomePage />} />
           <Route path={'/login'} element={<LoginPage />} />
+          <Route path={'/signup'} element={<SignUpPage />} />
           <Route path={'board/:boardId'} element={<BoardPage />} />
           <Route path={'*'} element={<NotFoundPage />} />
         </Routes>

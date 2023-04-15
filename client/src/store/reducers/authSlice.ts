@@ -18,12 +18,12 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     setToken: (state, action) => {
-      state.token = action.payload
+      state.token = action.payload.token
       state.login = true
-      localStorage.setItem('token', action.payload)
+      action.payload.rememberUser && localStorage.setItem('token', action.payload.token)
     },
     getToken: (state) => {
-      let token = localStorage.getItem('token')
+      const token = localStorage.getItem('token')
       if (token) {
         state.token = token
         state.login = true

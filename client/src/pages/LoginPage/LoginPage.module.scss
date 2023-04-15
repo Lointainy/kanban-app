@@ -1,0 +1,46 @@
+@import '@styles/main';
+
+.login {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-auto-rows: max-content;
+  grid-auto-flow: row;
+  row-gap: 1.5rem;
+}
+
+.header {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: space-between;
+}
+
+.link {
+  @include btn;
+  @include heading-m;
+  color: $color-main-purple;
+}
+
+.title {
+  color: color(title);
+}
+
+.form {
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 1.5rem;
+}
+
+.error {
+  color: $color-red;
+}
+
+.btn.login {
+  @include btn-primary-l;
+  border-radius: 0;
+}
+
+.btn.signup {
+  @include btn-secondary;
+}

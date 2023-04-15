@@ -1,24 +1,33 @@
-import { useAppDispatch, useAppSelector } from '@/hooks/useRedux'
-import { useLoginMutation } from '@/store/reducers/authApi'
-import { logout, setToken } from '@/store/reducers/authSlice'
 import { useState } from 'react'
+
+/* Store */
+import { useAppDispatch } from '@hooks/useRedux'
+import { useLoginMutation, useSignupMutation } from '@store/reducers/authApi'
+import { setToken } from '@store/reducers/authSlice'
 
 /* Styles */
 import style from './LoginPage.module.scss'
 
+/* Components */
+import { CheckBox, Input } from '@components'
+
+import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
+import { NavLink } from 'react-router-dom'
+
+const defaultForm = {
+  email: '',
+  password: '',
+  rememberUser: false,
+}
+
 export default function LoginPage() {
   const dispatch = useAppDispatch()
 
-  const user = useAppSelector((store) => store.auth.token)
-
   /* Form logic */
 
-  const [form, setForm] = useState({
-    email: '',
-    password: '',
-  })
+  const [form, setForm] = useState(defaultForm)
 
-  const [login, { error }] = useLoginMutation()
+  const [login, { isError: loginError }] = useLoginMutation()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm((prev) => ({
@@ -27,36 +36,61 @@ export default function LoginPage() {
     }))
   }
 
+  const handleChecked = () => {
+    setForm((prev) => ({ ...prev, rememberUser: !prev.rememberUser }))
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
 
     try {
       const { data } = await login(form)
-      dispatch(setToken(data.token))
+      dispatch(setToken({ token: data.token, rememberUser: form.rememberUser }))
     } catch (error) {
-      console.log(error)
+      setForm(defaultForm)
     }
   }
 
-  const handleLogout = () => {
-    dispatch(logout())
-  }
-
   return (
-    <>
-      {user}
-      <button onClick={handleLogout}>logout</button>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="">
-          <span>Email</span>
-          <input type="text" name="email" onChange={handleChange} value={form.email} />
-        </label>
-        <label htmlFor="">
-          <span>Name</span>
-          <input type="text" name="password" onChange={handleChange} value={form.password} />
-        </label>
-        <button type="submit">login</button>
+    <div className={style.login}>
+      <div className={style.header}>
+        <h1 className={style.title}>Login user</h1>
+        <NavLink to={'/signup'} className={style.link}>
+          singup
+        </NavLink>
+      </div>
+
+      <form onSubmit={handleSubmit} className={style.form}>
+        <Input
+          name={'email'}
+          placeholder={'Enter the email'}
+          errorMessage={'Wrong format'}
+          required={true}
+          pattern={'^([A-Z|a-z|0-9](.|_){0,1})+[A-Z|a-z|0-9]@([A-Z|a-z|0-9])+((.){0,1}[A-Z|a-z|0-9]){2}.[a-z]{2,3}$'}
+          label={'Email'}
+          value={form.email}
+          onChange={handleChange}
+        />
+
+        <Input
+          name={'password'}
+          placeholder={'Enter the password'}
+          errorMessage={'Password is not have correct format'}
+          required={true}
+          pattern={'^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[^da-zA-Z]).{8,}$'}
+          label={'Password'}
+          value={form.password}
+          onChange={handleChange}
+        />
+
+        {loginError && <span className={style.error}>User is not found or Password in not correct</span>}
+
+        <CheckBox title={'Remember me'} checked={form.rememberUser} onChange={handleChecked} />
+
+        <button type="submit" className={`${style.btn} ${style.login}`}>
+          login
+        </button>
       </form>
-    </>
+    </div>
   )
 }

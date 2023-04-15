@@ -1,3 +1,5 @@
 export { default as HomePage } from './HomePage/HomePage'
 export { default as NotFoundPage } from './NotFoundPage/NotFoundPage'
-export {default as BoardPage} from './BoardPage/BoardPage'
+export { default as BoardPage } from './BoardPage/BoardPage'
+export { default as SignUpPage } from './SignUpPage/SignUpPage'
+export { default as LoginPage } from './LoginPage/LoginPage'

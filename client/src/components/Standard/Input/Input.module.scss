@@ -21,7 +21,11 @@
 }
 
 .label {
-  color: color(title);
+  display: grid;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  color: color(subTitle);
   text-transform: capitalize;
 }
 
@@ -37,7 +41,7 @@
   padding: 0 1.5rem;
   border-radius: $border-radius;
   color: color(title);
-  border: 1px solid color(fieldBg);
+  border: 1px solid color(lineBg);
 
   &::placeholder {
     opacity: 0.35;
@@ -57,7 +61,7 @@
 }
 
 .input:invalid[focused='true'] {
-  border: 1px solid $color-red;
+  outline: 1px solid $color-red;
 }
 .input:invalid[focused='true'] ~ .label {
   color: $color-red;
