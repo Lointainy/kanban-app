@@ -4,11 +4,33 @@ const getBoards = async (req, res) => {
 	let user_id = req.user._id
 
 	try {
-		let userData = await Board.find({ user_id })
-		if (userData.length) {
-			res.status(200).json(userData[0].boards)
+		let userData = await Board.findOne({ user_id })
+		let boards = userData.boards
+
+		if (userData) {
+			res.status(200).json(boards)
 		} else {
 			res.status(404).json({ msg: `No Boards` })
+		}
+	} catch (error) {
+		res.status(500).json({ msg: error.message })
+		console.log(error)
+	}
+}
+
+const getBoardById = async (req, res) => {
+	let user_id = req.user._id
+	let board_id = req.params.id
+
+	try {
+		let userData = await Board.findOne({ user_id })
+		let board = userData.boards.find((b) => b._id == board_id)
+		console.log(board_id)
+
+		if (board) {
+			res.status(200).json(board)
+		} else {
+			res.status(404).json({ msg: `No Board with id ${board_id}` })
 		}
 	} catch (error) {
 		res.status(500).json({ msg: error.message })
@@ -101,5 +123,5 @@ const updateBoard = async (req, res) => {
 	}
 }
 
-module.exports = { getBoards, createBoard, deleteBoard, updateBoard, removeAllBoards }
+module.exports = { getBoards, getBoardById, createBoard, deleteBoard, updateBoard, removeAllBoards }
 

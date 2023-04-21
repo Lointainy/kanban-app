@@ -11,10 +11,47 @@ const getBoards = {
 					schema: {
 						type: 'array',
 						items: {
-							$ref: '#/components/schemas/Boards'
+							$ref: '#/components/schemas/Board'
 						}
 					},
 					example: '[{board data}, {board data}]'
+				}
+			}
+		},
+		404: {
+			description: 'No boards'
+		},
+		500: {
+			description: 'Error message'
+		}
+	}
+}
+
+const getBoardById = {
+	summary: 'Returns the single board',
+	description: 'please enter token for auth user, after that you can take boards data',
+	tags: ['Board'],
+	security: [{ bearerAuth: [] }],
+	parameters: [
+		{
+			name: 'id',
+			in: 'path',
+			description: 'board id',
+			required: true,
+			schema: {
+				type: 'string'
+			}
+		}
+	],
+	responses: {
+		200: {
+			description: 'The board',
+			content: {
+				'application/json': {
+					schema: {
+						$ref: '#/components/schemas/Board'
+					},
+					example: '{board data}'
 				}
 			}
 		},
@@ -182,6 +219,7 @@ const boardRouteDoc = {
 		delete: removeAllBoards
 	},
 	'/boards/{id}': {
+		get: getBoardById,
 		delete: deleteBoardById,
 		patch: updateBoardById
 	}
