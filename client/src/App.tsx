@@ -57,6 +57,7 @@ export const App: React.FC = () => {
     // if user is not loggined reset board
     if (!userLogined) {
       dispatch(setBoards([]))
+      navigate('/login')
     }
 
     if (userLogined && pathname.includes('/login')) {
