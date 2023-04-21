@@ -1,8 +1,14 @@
+import { useEffect, useRef } from 'react'
 /* Router */
 import { NavLink, useLocation } from 'react-router-dom'
 
 /* Store */
 import { useAppDispatch, useAppSelector } from '@hooks/useRedux'
+import { logout } from '@store/reducers/authSlice'
+import { openModal } from '@store/reducers/modalSlice'
+
+/* Hooks */
+import { useToggle } from '@hooks/useToggle'
 
 /* Styles */
 import style from './Header.module.scss'
@@ -13,9 +19,6 @@ import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 /* Logo */
 import darkLogo from '@/assets/images/logo/dark-theme-logo.svg'
 import lightLogo from '@/assets/images/logo/light-theme-logo.svg'
-import { openModal } from '@/store/reducers/modalSlice'
-import { useToggle } from '@/hooks/useToggle'
-import { logout } from '@/store/reducers/authSlice'
 
 const Header: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -29,7 +32,7 @@ const Header: React.FC = () => {
   // Location path
   const { pathname } = useLocation()
 
-  const { toggle: optionDropdown, handleToggle: optionDropdownToggle } = useToggle(false)
+  const { toggle: optionDropdown, handleToggle: optionDropdownToggle, setToggle: setOptionDropdown } = useToggle(false)
 
   const handleOption = (name: string) => {
     switch (name) {
@@ -44,13 +47,28 @@ const Header: React.FC = () => {
         break
     }
 
-    return optionDropdownToggle()
+    return setOptionDropdown(false)
   }
 
   const handleLogout = () => {
     dispatch(logout())
-    return optionDropdownToggle()
+    return setOptionDropdown(false)
   }
+
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setOptionDropdown(false)
+      }
+    }
+    document.addEventListener('mousedown', handleOutsideClick)
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick)
+    }
+  }, [])
 
   return (
     <div className={style.header}>
@@ -67,12 +85,12 @@ const Header: React.FC = () => {
         <Icon icon="plus" />
         <span>Add new task</span>
       </button>
-      <div className={style.option}>
+      <div className={style.option} ref={dropdownRef}>
         <button className={style.button} onClick={optionDropdownToggle}>
           <Icon icon="ellipsis-vertical" className={style.icon} />
         </button>
         {optionDropdown && (
-          <div className={style.option__dropdown}>
+          <div className={style.option__dropdown} onClick={(e) => e.stopPropagation()}>
             <ul className={style.option__dropdown_list}>
               <li className={style.option__dropdown_item} onClick={() => handleOption('EditBoard')}>
                 Edit Board

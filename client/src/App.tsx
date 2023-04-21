@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 /* Router */
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
@@ -7,7 +7,7 @@ import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '@hooks/useRedux'
 import { getToken } from '@store/reducers/authSlice'
 import { setTheme } from '@store/reducers/uiSlice'
-import { setBoards } from '@store/reducers/boardSlice'
+import { resetBoards, setActiveBoard, setBoards } from '@store/reducers/boardSlice'
 import { useGetBoardsQuery } from '@store/reducers/boardsApi'
 
 /* Hooks */
@@ -26,6 +26,7 @@ export const App: React.FC = () => {
 
   // Routes
   const navigate = useNavigate()
+
   const { pathname } = useLocation()
 
   // Get name of theme from localStorage or set default
@@ -50,27 +51,29 @@ export const App: React.FC = () => {
   const boards = useGetBoardsQuery('')
 
   useEffect(() => {
-    // if user is login in to reveved data
-    if (userLogined) {
-      boards.refetch()
-    }
-    // if user is not loggined reset board
-    if (!userLogined) {
-      dispatch(setBoards([]))
-      navigate('/login')
+    // Check the Path
+    if (userLogined && !pathname.includes('/board/')) {
+      dispatch(setActiveBoard({}))
     }
 
     if (userLogined && pathname.includes('/login')) {
       navigate('/')
     }
-  }, [userLogined, navigate])
 
-  useEffect(() => {
-    // If response success, set boards data to store
-    if (boards.isSuccess) {
-      dispatch(setBoards(boards.data))
+    // If user is logged in, fetch boards data and set it to store
+    if (userLogined) {
+      boards.refetch().then(() => {
+        if (boards.isSuccess) {
+          dispatch(setBoards(boards.data))
+        }
+      })
     }
-  }, [boards])
+
+    // if user is not logged in, reset boards and navigate to login page if there was an error fetching data
+    if (!userLogined) {
+      dispatch(resetBoards())
+    }
+  }, [userLogined, navigate, pathname, boards.isSuccess])
 
   return (
     <div className={`${style.app} ${theme} ${!userLogined && style.sidebar_open}`}>

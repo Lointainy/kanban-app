@@ -10,7 +10,7 @@ export const boardsApi = createApi({
     prepareHeaders: (headers, { getState }) => {
       const { auth } = getState() as RootState
       if (auth.token) {
-        headers.set(`Authorization`, `Bearer ${auth.token}`)
+        headers.set('Authorization', `Bearer ${auth.token}`)
       }
 
       return headers
@@ -25,9 +25,12 @@ export const boardsApi = createApi({
       }),
     }),
     getBoards: builder.query({
-      query: () => `/boards`,
+      query: () => '/boards',
+    }),
+    getSingleBoard: builder.query({
+      query: (id) => `/boards/${id}`,
     }),
   }),
 })
 
-export const { useGetBoardsQuery, useUpdateBoardMutation } = boardsApi
+export const { useGetBoardsQuery, useUpdateBoardMutation, useGetSingleBoardQuery } = boardsApi

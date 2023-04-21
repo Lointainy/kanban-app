@@ -13,6 +13,7 @@ import { ThemeSwitcher } from '@components'
 /* Icons */
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import { openModal } from '@/store/reducers/modalSlice'
+import { useEffect, useState } from 'react'
 
 const Sidebar: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -21,13 +22,11 @@ const Sidebar: React.FC = () => {
 
   const boardsLength = boards ? boards.length : 0
 
-  const activeItem = (id: string) => {
-    if (activeBoard._id === id) {
-      return style.active
-    } else {
-      return ''
-    }
-  }
+  const [activeId, setActiveId] = useState('')
+
+  useEffect(() => {
+    setActiveId(activeBoard._id)
+  }, [activeBoard])
 
   return (
     <div className={style.sidebar}>
@@ -36,7 +35,7 @@ const Sidebar: React.FC = () => {
         <ul className={style.links}>
           {boards.map((board) => {
             return (
-              <li key={board._id} className={`${style.item} ${activeItem(board._id)} `}>
+              <li key={board._id} className={`${style.item} ${board._id === activeId ? style.active : ''} `}>
                 <NavLink to={`board/${board._id}`} className={style.link}>
                   <Icon icon="layer-group" className={style.icon} />
                   <span className={style.name}>{board.name}</span>

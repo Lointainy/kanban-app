@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom'
 /* Store */
 import { useAppDispatch, useAppSelector } from '@hooks/useRedux'
 import { setActiveBoard } from '@store/reducers/boardSlice'
-import { useUpdateBoardMutation } from '@store/reducers/boardsApi'
+import { useGetSingleBoardQuery, useUpdateBoardMutation } from '@store/reducers/boardsApi'
 
 /* Style */
 import style from './BoardPage.module.scss'
@@ -20,33 +20,41 @@ const BoardPage: React.FC = () => {
   // Get page params (board id)
   const { boardId } = useParams()
 
-  // Get loading status and data from active board
-  const { isLoading, activeBoard: board } = useAppSelector((store) => store.boards)
+  const { activeBoard } = useAppSelector((store) => store.boards)
+
+  const userLogined = useAppSelector((store) => store.auth.login)
+
+  const board = useGetSingleBoardQuery(boardId)
 
   // Patch request, update boards data from API
   const [updateBoard] = useUpdateBoardMutation()
 
   useEffect(() => {
-    // Is loading set active board to store
-    if (isLoading === false) {
-      dispatch(setActiveBoard(boardId))
+    if (userLogined) {
+      board.refetch().then(() => {
+        if (board.isSuccess) {
+          dispatch(setActiveBoard(board.data))
+        }
+      })
     }
-  }, [isLoading, boardId])
+  }, [userLogined, board.isLoading, board.data])
 
   // check change and update API
   useEffect(() => {
-    if (board.name) {
+    if (activeBoard.name) {
       // check change and update API
-      updateBoard({ id: boardId, board })
+      updateBoard({ id: boardId, board: activeBoard })
     }
-  }, [board])
+  }, [activeBoard])
 
   return (
     <div className={style.page}>
       <div className={style.columns}>
-        {board.columns?.map((column) => {
+        {activeBoard?.columns?.map((column) => {
           return <Column column={column} key={column._id} />
         })}
+
+        {!board.isSuccess && 'not success'}
         <button>add new column</button>
       </div>
     </div>

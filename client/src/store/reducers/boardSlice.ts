@@ -10,6 +10,11 @@ export const boardsSlice = createSlice({
   name: 'boards',
   initialState,
   reducers: {
+    resetBoards: (state) => {
+      state.boards = []
+      state.activeBoard = {}
+      state.isLoading = true
+    },
     setBoards: (state, action) => {
       state.boards = action.payload
       state.isLoading = false
@@ -17,9 +22,9 @@ export const boardsSlice = createSlice({
     },
 
     setActiveBoard: (state, action) => {
-      const id = action.payload
+      const board = action.payload
 
-      state.activeBoard = state.boards.filter((board) => board._id == id)[0]
+      state.activeBoard = board
     },
     updateTask: (state, action) => {
       const updatedTask = action.payload
@@ -84,6 +89,6 @@ export const boardsSlice = createSlice({
   },
 })
 
-export const { setBoards, setActiveBoard, updateTask, moveTask } = boardsSlice.actions
+export const { resetBoards, setBoards, setActiveBoard, updateTask, moveTask } = boardsSlice.actions
 
 export default boardsSlice.reducer
