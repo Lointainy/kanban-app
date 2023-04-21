@@ -1,6 +1,4 @@
-import { stat } from 'fs'
 import { createSlice } from '@reduxjs/toolkit'
-import { STATES } from 'mongoose'
 
 const initialState = {
   boards: [],
@@ -15,11 +13,11 @@ export const boardsSlice = createSlice({
     setBoards: (state, action) => {
       state.boards = action.payload
       state.isLoading = false
-      console.log(JSON.stringify(state.boards))
+      // console.log(JSON.stringify(state.boards))
     },
 
     setActiveBoard: (state, action) => {
-      let id = action.payload
+      const id = action.payload
 
       state.activeBoard = state.boards.filter((board) => board._id == id)[0]
     },
@@ -42,14 +40,14 @@ export const boardsSlice = createSlice({
       state.activeBoard = { ...state.activeBoard, columns: updatedColumns }
     },
     moveTask: (state, action) => {
-      let taskId = action.payload.taskId
+      const taskId = action.payload.taskId
 
-      let parentColumnId = action.payload.parentColumnId
-      let newParentColumnId = action.payload.newParentColumnId
+      const parentColumnId = action.payload.parentColumnId
+      const newParentColumnId = action.payload.newParentColumnId
 
-      let newTaskId = action.payload.newTaskId
+      const newTaskId = action.payload.newTaskId
 
-      let task = state.activeBoard.columns
+      const task = state.activeBoard.columns
         .filter((column) => column._id === parentColumnId)[0]
         .tasks.filter((task) => task._id === taskId)[0]
 
@@ -58,9 +56,9 @@ export const boardsSlice = createSlice({
       if (parentColumnId === newParentColumnId) {
         updatedColumns = state.activeBoard.columns.map((column) => {
           if (column._id === parentColumnId) {
-            let tasks = column.tasks
-            let newTaskIndex = tasks.findIndex((task) => task._id === newTaskId)
-            let newTasks = tasks.filter((task) => task._id != taskId)
+            const tasks = column.tasks
+            const newTaskIndex = tasks.findIndex((task) => task._id === newTaskId)
+            const newTasks = tasks.filter((task) => task._id != taskId)
             newTasks.splice(newTaskIndex, 0, task)
             return { ...column, tasks: newTasks }
           } else {
