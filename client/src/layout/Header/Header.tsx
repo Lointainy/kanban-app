@@ -14,6 +14,8 @@ import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import darkLogo from '@/assets/images/logo/dark-theme-logo.svg'
 import lightLogo from '@/assets/images/logo/light-theme-logo.svg'
 import { openModal } from '@/store/reducers/modalSlice'
+import { useToggle } from '@/hooks/useToggle'
+import { logout } from '@/store/reducers/authSlice'
 
 const Header: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -22,10 +24,33 @@ const Header: React.FC = () => {
   const theme = useAppSelector((store) => store.ui.colorTheme)
 
   // Get name active board from store
-  const { name: boardTitle } = useAppSelector((store) => store.boards.activeBoard)
+  const board = useAppSelector((store) => store.boards.activeBoard)
 
   // Location path
   const { pathname } = useLocation()
+
+  const { toggle: optionDropdown, handleToggle: optionDropdownToggle } = useToggle(false)
+
+  const handleOption = (name: string) => {
+    switch (name) {
+      case 'AddNewTask':
+        dispatch(openModal({ name: 'AddNewTask' }))
+        break
+      case 'EditBoard':
+        dispatch(openModal({ name: 'EditBoard', data: board }))
+        break
+      case 'DeleteBoard':
+        dispatch(openModal(openModal({ name: 'DeleteBoard', data: board._id })))
+        break
+    }
+
+    return optionDropdownToggle()
+  }
+
+  const handleLogout = () => {
+    dispatch(logout())
+    return optionDropdownToggle()
+  }
 
   return (
     <div className={style.header}>
@@ -36,16 +61,33 @@ const Header: React.FC = () => {
         </NavLink>
       </div>
 
-      <h1 className={style.title}>{pathname.includes('/board/') && boardTitle}</h1>
+      <h1 className={style.title}>{pathname.includes('/board/') && board.name}</h1>
 
-      <button className={style.btn} onClick={() => dispatch(openModal({ name: 'AddNewTask' }))}>
+      <button className={style.btn} onClick={() => handleOption('AddNewTask')}>
         <Icon icon="plus" />
         <span>Add new task</span>
       </button>
       <div className={style.option}>
-        <div className={style.option__btn}>
-          <Icon icon="ellipsis-vertical" />
-        </div>
+        <button className={style.button} onClick={optionDropdownToggle}>
+          <Icon icon="ellipsis-vertical" className={style.icon} />
+        </button>
+        {optionDropdown && (
+          <div className={style.option__dropdown}>
+            <ul className={style.option__dropdown_list}>
+              <li className={style.option__dropdown_item} onClick={() => handleOption('EditBoard')}>
+                Edit Board
+              </li>
+              <li
+                className={`${style.option__dropdown_item} ${style.error}`}
+                onClick={() => handleOption('DeleteBoard')}>
+                Delete Board
+              </li>
+              <li className={`${style.option__dropdown_item} ${style.error}`} onClick={() => handleLogout()}>
+                Logout
+              </li>
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   )
