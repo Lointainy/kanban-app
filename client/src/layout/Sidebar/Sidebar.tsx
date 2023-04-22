@@ -15,8 +15,12 @@ import { Input, ThemeSwitcher } from '@components'
 /* Icons */
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import { useToggle } from '@/hooks/useToggle'
+import { createBoard } from '@/store/reducers/boardSlice'
+import { useAddBoardMutation } from '@/store/reducers/boardsApi'
 
 const Sidebar: React.FC = () => {
+  const dispatch = useAppDispatch()
+
   const { boards, activeBoard } = useAppSelector((store) => store.boards)
 
   const [activeId, setActiveId] = useState('')
@@ -27,8 +31,15 @@ const Sidebar: React.FC = () => {
 
   const boardsLength = boards ? boards.length : 0
 
+  const [addBoard, { isLoading, isSuccess }] = useAddBoardMutation()
+
   const handleChangeNewName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewBoardName(e.target.value)
+  }
+
+  const handleCreateBoard = () => {
+    addBoard({ name: newBoardName })
+    setCreateDropdown(false)
   }
 
   useEffect(() => {
@@ -62,7 +73,7 @@ const Sidebar: React.FC = () => {
                 value={newBoardName}
                 onChange={handleChangeNewName}
               />
-              <button className={style.btn__create} onClick={createDropdownToggle}>
+              <button className={style.btn__create} onClick={() => handleCreateBoard()}>
                 <Icon icon="plus" />
                 <span>create</span>
               </button>

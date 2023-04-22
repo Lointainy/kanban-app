@@ -27,10 +27,17 @@ export const boardsApi = createApi({
     getBoards: builder.query({
       query: () => '/boards',
     }),
+    addBoard: builder.mutation({
+      query: (board) => ({
+        url: '/boards',
+        method: 'POST',
+        body: board,
+      }),
+    }),
     getSingleBoard: builder.query({
       query: (id) => `/boards/${id}`,
     }),
   }),
 })
 
-export const { useGetBoardsQuery, useUpdateBoardMutation, useGetSingleBoardQuery } = boardsApi
+export const { useGetBoardsQuery, useUpdateBoardMutation, useGetSingleBoardQuery, useAddBoardMutation } = boardsApi
