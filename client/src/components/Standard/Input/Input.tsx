@@ -10,13 +10,14 @@ interface Props extends PropsWithChildren {
   errorMessage?: string
   required?: boolean
   pattern?: string
-  label: string
-  value?: string
+  label?: string
+  value: string
+  className?: string
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 const Input: React.FC<Props> = (props) => {
-  const { label, errorMessage, onChange, ...inputProps } = props
+  const { label, errorMessage, className, onChange, ...inputProps } = props
 
   const [focused, setFocused] = useState<boolean>(false)
 
@@ -27,7 +28,7 @@ const Input: React.FC<Props> = (props) => {
   }
 
   return (
-    <div className={style.field}>
+    <div className={`${style.field} ${className && style[className]}`}>
       <input
         type="text"
         {...inputProps}
