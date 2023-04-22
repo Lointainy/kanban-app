@@ -17,3 +17,15 @@
   overflow-y: hidden;
   padding: 1.5rem;
 }
+
+.app.fullscreen {
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: 400px;
+  grid-template-rows: 1fr;
+  grid-template-areas: 'content';
+  .content {
+    background: color(fieldBg);
+    border-radius: $border-radius;
+  }
+}
