@@ -8,6 +8,7 @@
 - [My process](#my-process)
   - [Built with](#built-with)
   - [What I learned](#what-i-learned)
+- [Todo](#todo)
 - [Status](#project-status)
 - [Author](#author)
 
@@ -66,6 +67,17 @@
 - Vite
   - create basic config
   - connect assets
+
+## Todo
+
+- [x] - login / singup page
+- [ ] - homepage dashboard
+
+###### Sidebar
+
+- [ ] - toggle to hide sidebar
+- [ ] - create boarder input field
+- [ ] - change board name in sidebar without opening modal window
 
 ###### Project status
 
