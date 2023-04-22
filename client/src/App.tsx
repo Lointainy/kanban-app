@@ -30,10 +30,8 @@ export const App: React.FC = () => {
   // Get name of theme from localStorage or set default
   const { userTheme } = useTheme()
 
-  // Open modal
-  const modalOpen = useAppSelector((store) => store.modal.status)
-
-  const userLogined = useAppSelector((store) => store.auth.login)
+  const modalOpen = useAppSelector((store) => store.modal.status) // Open modal
+  const userLogined = useAppSelector((store) => store.auth.login) // loginned
 
   // Status theme
   const theme = useAppSelector((store) => store.ui.colorTheme)
@@ -44,7 +42,7 @@ export const App: React.FC = () => {
   }, [dispatch])
 
   // Get data from API
-  const boards = useGetBoardsQuery('')
+  const boardsFromApi = useGetBoardsQuery('')
 
   useEffect(() => {
     // Check the Path reset active board
@@ -54,13 +52,13 @@ export const App: React.FC = () => {
 
     // If user is logged in, fetch boards data and set it to store
     if (userLogined) {
-      boards.refetch().then(() => {
-        if (boards.isSuccess) {
-          dispatch(setBoards(boards.data))
+      boardsFromApi.refetch().then(() => {
+        if (boardsFromApi.isSuccess) {
+          dispatch(setBoards(boardsFromApi.data))
         }
       })
     }
-  }, [userLogined, pathname, boards])
+  }, [userLogined, pathname, boardsFromApi])
 
   if (userLogined && !pathname.includes('/login')) {
     return (
