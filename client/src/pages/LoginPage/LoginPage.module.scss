@@ -36,11 +36,7 @@
   color: $color-red;
 }
 
-.btn.login {
+.btn {
   @include btn-primary-l;
   border-radius: 0;
-}
-
-.btn.signup {
-  @include btn-secondary;
 }

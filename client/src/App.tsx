@@ -25,8 +25,6 @@ export const App: React.FC = () => {
   const dispatch = useAppDispatch()
 
   // Routes
-  const navigate = useNavigate()
-
   const { pathname } = useLocation()
 
   // Get name of theme from localStorage or set default
@@ -49,7 +47,7 @@ export const App: React.FC = () => {
   const boards = useGetBoardsQuery('')
 
   useEffect(() => {
-    // Check the Path
+    // Check the Path reset active board
     if (userLogined && !pathname.includes('/board/')) {
       dispatch(setActiveBoard({}))
     }
@@ -62,7 +60,7 @@ export const App: React.FC = () => {
         }
       })
     }
-  }, [userLogined, navigate, pathname, boards])
+  }, [userLogined, pathname, boards])
 
   if (userLogined && !pathname.includes('/login')) {
     return (

@@ -1,8 +1,11 @@
 import { useState } from 'react'
 
+/* Routes */
+import { NavLink } from 'react-router-dom'
+
 /* Store */
 import { useAppDispatch } from '@hooks/useRedux'
-import { useLoginMutation, useSignupMutation } from '@store/reducers/authApi'
+import { useLoginMutation } from '@store/reducers/authApi'
 import { setToken } from '@store/reducers/authSlice'
 
 /* Styles */
@@ -10,9 +13,6 @@ import style from './LoginPage.module.scss'
 
 /* Components */
 import { CheckBox, Input } from '@components'
-
-import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
-import { NavLink } from 'react-router-dom'
 
 const defaultForm = {
   email: '',
@@ -87,7 +87,7 @@ export default function LoginPage() {
 
         <CheckBox title={'Remember me'} checked={form.rememberUser} onChange={handleChecked} />
 
-        <button type="submit" className={`${style.btn} ${style.login}`}>
+        <button type="submit" className={`${style.btn}`}>
           login
         </button>
       </form>
