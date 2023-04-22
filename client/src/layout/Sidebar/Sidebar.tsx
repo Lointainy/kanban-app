@@ -1,5 +1,7 @@
+import { useEffect, useState } from 'react'
+
 /* Store */
-import { useAppDispatch, useAppSelector } from '@/hooks/useRedux'
+import { useAppDispatch, useAppSelector } from '@hooks/useRedux'
 
 /* Routes */
 import { NavLink } from 'react-router-dom'
@@ -8,21 +10,26 @@ import { NavLink } from 'react-router-dom'
 import style from './Sidebar.module.scss'
 
 /* Components */
-import { ThemeSwitcher } from '@components'
+import { Input, ThemeSwitcher } from '@components'
 
 /* Icons */
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
-import { openModal } from '@/store/reducers/modalSlice'
-import { useEffect, useState } from 'react'
+import { useToggle } from '@/hooks/useToggle'
 
 const Sidebar: React.FC = () => {
-  const dispatch = useAppDispatch()
-
   const { boards, activeBoard } = useAppSelector((store) => store.boards)
+
+  const [activeId, setActiveId] = useState('')
+
+  const { toggle: createDropdown, handleToggle: createDropdownToggle, setToggle: setCreateDropdown } = useToggle(false)
+
+  const [newBoardName, setNewBoardName] = useState('')
 
   const boardsLength = boards ? boards.length : 0
 
-  const [activeId, setActiveId] = useState('')
+  const handleChangeNewName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewBoardName(e.target.value)
+  }
 
   useEffect(() => {
     setActiveId(activeBoard._id)
@@ -44,11 +51,34 @@ const Sidebar: React.FC = () => {
             )
           })}
         </ul>
-        <button className={style.btn} onClick={() => dispatch(openModal({ name: 'AddNewBoard' }))}>
-          + Create New Board
-        </button>
+        <div className={`${style.create}`}>
+          {createDropdown && (
+            <div className={style.create__field}>
+              <Input
+                name={'create'}
+                placeholder={'Enter the board name'}
+                required={true}
+                className={'simple'}
+                value={newBoardName}
+                onChange={handleChangeNewName}
+              />
+              <button className={style.btn__create} onClick={createDropdownToggle}>
+                <Icon icon="plus" />
+                <span>create</span>
+              </button>
+              <button className={style.btn__cancel} onClick={createDropdownToggle}>
+                <span>Cancel</span>
+              </button>
+            </div>
+          )}
+          {!createDropdown && (
+            <button className={`${style.btn}`} onClick={createDropdownToggle}>
+              <Icon icon="plus" />
+              <span>Create New Board</span>
+            </button>
+          )}
+        </div>
       </div>
-
       <ThemeSwitcher />
     </div>
   )
