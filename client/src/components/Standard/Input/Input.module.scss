@@ -5,11 +5,11 @@
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: max-content 3.5rem;
   row-gap: 0.5rem;
-  grid-area: input;
 }
 
 .field.simple {
   grid-template-rows: max-content 2.5rem;
+  grid-area: input;
 }
 
 .label {
