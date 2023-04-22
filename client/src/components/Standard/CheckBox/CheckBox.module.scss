@@ -28,6 +28,7 @@
   font-size: 12px;
   color: color(fieldBg);
   transition: $animate;
+  outline: 1px solid color(subTitle);
 }
 
 .title {
@@ -38,4 +39,5 @@
 
 .input:checked + .checkbox {
   background: $color-main-purple;
+  outline: none;
 }
