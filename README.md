@@ -70,14 +70,15 @@
 
 ## Todo
 
+###### Pages
+
 - [x] - login / singup page
 - [ ] - homepage dashboard
 
 ###### Sidebar
 
 - [ ] - toggle to hide sidebar
-- [ ] - create boarder input field
-- [ ] - change board name in sidebar without opening modal window
+- [x] - change board name in sidebar without opening modal window
 
 ###### Project status
 
