@@ -1,13 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 /* Router */
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 
 /* Store */
 import { useAppDispatch, useAppSelector } from '@hooks/useRedux'
-import { getToken } from '@store/reducers/authSlice'
 import { setTheme } from '@store/reducers/uiSlice'
-import { resetBoards, setActiveBoard, setBoards } from '@store/reducers/boardSlice'
+import { setActiveBoard, setBoards } from '@store/reducers/boardSlice'
 import { useGetBoardsQuery } from '@store/reducers/boardsApi'
 
 /* Hooks */
@@ -20,6 +19,7 @@ import { Modals } from '@components'
 
 /* Styles */
 import style from './App.module.scss'
+import authWrapper from './hooks/authWrapper'
 
 export const App: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -43,8 +43,6 @@ export const App: React.FC = () => {
   useEffect(() => {
     // Set theme name to store
     userTheme && dispatch(setTheme(userTheme))
-    // Check token key
-    dispatch(getToken())
   }, [dispatch])
 
   // Get data from API
@@ -56,10 +54,6 @@ export const App: React.FC = () => {
       dispatch(setActiveBoard({}))
     }
 
-    if (userLogined && pathname.includes('/login')) {
-      navigate('/')
-    }
-
     // If user is logged in, fetch boards data and set it to store
     if (userLogined) {
       boards.refetch().then(() => {
@@ -68,28 +62,36 @@ export const App: React.FC = () => {
         }
       })
     }
+  }, [userLogined, navigate, pathname, boards])
 
-    // if user is not logged in, reset boards and navigate to login page if there was an error fetching data
-    if (!userLogined) {
-      dispatch(resetBoards())
-    }
-  }, [userLogined, navigate, pathname, boards.isSuccess])
+  if (userLogined && !pathname.includes('/login')) {
+    return (
+      <div className={`${style.app} ${theme}`}>
+        {modalOpen && <Modals />}
+        <Header />
+        <Sidebar />
+        <div className={style.content}>
+          <Routes>
+            <Route index element={<HomePage />} />
+            <Route path={'board/:boardId'} element={<BoardPage />} />
+            <Route path={'*'} element={<NotFoundPage />} />
+          </Routes>
+        </div>
+      </div>
+    )
+  }
 
   return (
-    <div className={`${style.app} ${theme} ${!userLogined && style.sidebar_open}`}>
-      {modalOpen && <Modals />}
-      <Header />
-      <Sidebar />
+    <div className={`${style.app} ${theme} ${style.fullscreen}`}>
       <div className={style.content}>
         <Routes>
-          <Route index element={<HomePage />} />
           <Route path={'/login'} element={<LoginPage />} />
           <Route path={'/signup'} element={<SignUpPage />} />
-          <Route path={'board/:boardId'} element={<BoardPage />} />
           <Route path={'*'} element={<NotFoundPage />} />
         </Routes>
       </div>
     </div>
   )
 }
-export default App
+
+export default authWrapper(App)

@@ -6,6 +6,7 @@ import { NavLink, useLocation } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '@hooks/useRedux'
 import { logout } from '@store/reducers/authSlice'
 import { openModal } from '@store/reducers/modalSlice'
+import { resetBoards } from '@store/reducers/boardSlice'
 
 /* Hooks */
 import { useToggle } from '@hooks/useToggle'
@@ -52,6 +53,7 @@ const Header: React.FC = () => {
 
   const handleLogout = () => {
     dispatch(logout())
+    dispatch(resetBoards())
     return setOptionDropdown(false)
   }
 
