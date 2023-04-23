@@ -7,12 +7,12 @@ import ViewTask from './ViewTask/ViewTask'
 import EditTask from './EditTask/EditTask'
 import AddNewTask from './AddNewTask/AddNewTask'
 import AddNewBoard from './AddNewBoard/AddNewBoard'
-
-/* Styles */
-import style from './index.module.scss'
 import DeleteTask from './DeleteTask/DeleteTask'
 import EditBoard from './EditBoard/EditBoard'
 import DeleteBoard from './DeleteBoard/DeleteBoard'
+
+/* Styles */
+import style from './index.module.scss'
 
 const Modals: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -35,7 +35,7 @@ const Modals: React.FC = () => {
             {modal.name == 'DeleteTask' && <DeleteTask id={modal.id} />}
             {modal.name == 'AddNewBoard' && <AddNewBoard />}
             {modal.name == 'EditBoard' && <EditBoard board={modal.data} />}
-            {modal.name == 'DeleteBoard' && <DeleteBoard id={modal.id} />}
+            {modal.name == 'DeleteBoard' && <DeleteBoard id={modal.data._id} name={modal.data.name} />}
           </div>
         </div>
       )}

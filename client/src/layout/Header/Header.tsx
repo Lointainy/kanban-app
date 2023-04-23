@@ -44,7 +44,7 @@ const Header: React.FC = () => {
         dispatch(openModal({ name: 'EditBoard', data: board }))
         break
       case 'DeleteBoard':
-        dispatch(openModal(openModal({ name: 'DeleteBoard', data: board._id })))
+        dispatch(openModal({ name: 'DeleteBoard', data: board }))
         break
     }
 
