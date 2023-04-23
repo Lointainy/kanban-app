@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 /* Store */
-import { useAppDispatch, useAppSelector } from '@hooks/useRedux'
+import { useAppSelector } from '@hooks/useRedux'
 
 /* Routes */
 import { NavLink } from 'react-router-dom'
@@ -15,12 +15,9 @@ import { Input, ThemeSwitcher } from '@components'
 /* Icons */
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import { useToggle } from '@/hooks/useToggle'
-import { createBoard } from '@/store/reducers/boardSlice'
 import { useAddBoardMutation } from '@/store/reducers/boardsApi'
 
 const Sidebar: React.FC = () => {
-  const dispatch = useAppDispatch()
-
   const { boards, activeBoard } = useAppSelector((store) => store.boards)
 
   const [activeId, setActiveId] = useState('')
