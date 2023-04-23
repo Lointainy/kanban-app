@@ -26,6 +26,18 @@ export const boardsSlice = createSlice({
 
       state.activeBoard = board
     },
+    deleteTask: (state, action) => {
+      const taskId = action.payload
+
+      const updatedColumns = state.activeBoard.columns.map((column) => {
+        return {
+          ...column,
+          tasks: column.tasks.filter((task) => task._id !== taskId),
+        }
+      })
+
+      state.activeBoard = { ...state.activeBoard, columns: updatedColumns }
+    },
     updateTask: (state, action) => {
       const updatedTask = action.payload
 
@@ -89,6 +101,6 @@ export const boardsSlice = createSlice({
   },
 })
 
-export const { resetBoards, setBoards, setActiveBoard, updateTask, moveTask } = boardsSlice.actions
+export const { resetBoards, setBoards, setActiveBoard, updateTask, moveTask, deleteTask } = boardsSlice.actions
 
 export default boardsSlice.reducer
