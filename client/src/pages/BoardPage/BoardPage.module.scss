@@ -1,8 +1,12 @@
 @import '@styles/main';
+.page {
+  height: 100%;
+}
 
 .columns {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 17.5rem;
   column-gap: 1.5rem;
+  height: 100%;
 }
