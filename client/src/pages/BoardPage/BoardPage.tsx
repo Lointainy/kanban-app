@@ -12,7 +12,7 @@ import { useGetSingleBoardQuery, useUpdateBoardMutation } from '@store/reducers/
 import style from './BoardPage.module.scss'
 
 /* Components */
-import { Column } from '@components/Board'
+import { Column, NewColumn } from '@components/Board'
 
 const BoardPage: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -20,7 +20,7 @@ const BoardPage: React.FC = () => {
   // Get page params (board id)
   const { boardId } = useParams()
 
-  const { activeBoard } = useAppSelector((store) => store.boards)
+  const { activeBoard, boards } = useAppSelector((store) => store.boards)
 
   const userLogined = useAppSelector((store) => store.auth.login)
 
@@ -53,9 +53,7 @@ const BoardPage: React.FC = () => {
         {activeBoard?.columns?.map((column) => {
           return <Column column={column} key={column._id} />
         })}
-
-        {!board.isSuccess && 'not success'}
-        <button>add new column</button>
+        <NewColumn />
       </div>
     </div>
   )
