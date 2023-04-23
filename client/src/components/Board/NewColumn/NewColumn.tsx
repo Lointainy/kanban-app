@@ -25,11 +25,14 @@ export default function NewColumn() {
     setToggle(false)
     addColumn({ id: boardId, column: { name: columnName } })
   }
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') handleCreateColumn()
+  }
 
   return (
-    <div className={`${style.create}`}>
+    <div className={`${style.create}`} onClick={handleToggle}>
       {toggle && (
-        <div className={style.create__field}>
+        <div className={style.create__field} onClick={(e) => e.stopPropagation()}>
           <Input
             name={'create'}
             placeholder={'Enter the Column name'}
@@ -37,6 +40,7 @@ export default function NewColumn() {
             className={'simple'}
             value={columnName}
             onChange={handleChangeName}
+            onKeyDown={handleKeyDown}
           />
           <button className={style.btn__create} onClick={() => handleCreateColumn()}>
             <Icon icon="plus" />
@@ -48,7 +52,7 @@ export default function NewColumn() {
         </div>
       )}
       {!toggle && (
-        <button className={`${style.btn}`} onClick={handleToggle}>
+        <button className={`${style.btn}`}>
           <Icon icon="plus" />
           <span>Create New Column</span>
         </button>
