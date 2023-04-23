@@ -58,7 +58,7 @@ export const App: React.FC = () => {
         }
       })
     }
-  }, [userLogined, pathname, boardsFromApi])
+  }, [userLogined, pathname, boardsFromApi.data, boardsFromApi.isLoading, boardsFromApi.isSuccess])
 
   if (userLogined && !pathname.includes('/login')) {
     return (
