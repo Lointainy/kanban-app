@@ -32,7 +32,7 @@ const Modals: React.FC = () => {
             {modal.name == 'AddNewTask' && <AddNewTask />}
             {modal.name == 'ViewTask' && <ViewTask task={modal.data} />}
             {modal.name == 'EditTask' && <EditTask task={modal.data} />}
-            {modal.name == 'DeleteTask' && <DeleteTask id={modal.id} />}
+            {modal.name == 'DeleteTask' && <DeleteTask id={modal.data._id} name={modal.data.title} />}
             {modal.name == 'AddNewBoard' && <AddNewBoard />}
             {modal.name == 'EditBoard' && <EditBoard board={modal.data} />}
             {modal.name == 'DeleteBoard' && <DeleteBoard id={modal.data._id} name={modal.data.name} />}
