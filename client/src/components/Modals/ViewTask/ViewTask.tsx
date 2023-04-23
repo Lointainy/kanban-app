@@ -28,7 +28,7 @@ const ViewTask: React.FC = (props) => {
   const { toggle: optionDropdown, handleToggle: optionDropdownToggle } = useToggle(false)
   const { toggle: statusDropdown, handleToggle: statusDropdownToggle } = useToggle(false)
 
-  //Counting completed tasks and their total number
+  // Counting completed tasks and their total number
   const { completed, total, setSubtasks } = useCalculateCompleted()
 
   useEffect(() => {
@@ -80,7 +80,7 @@ const ViewTask: React.FC = (props) => {
                 </li>
                 <li
                   className={`${style.option__dropdown_item} ${style.error}`}
-                  onClick={() => dispatch(openModal({ name: 'DeleteTask', data: props.task._id }))}>
+                  onClick={() => dispatch(openModal({ name: 'DeleteTask', data: props.task }))}>
                   delete task
                 </li>
               </ul>
