@@ -3,6 +3,7 @@ const boardRouteDoc = require('./routes/boardRoutes.doc')
 
 const userSchema = require('./schema/userSchema.doc')
 const { boardsByUserSchema, singleBoardSchema } = require('./schema/boardSchema.doc')
+const columnRouteDoc = require('./routes/columnRoutes.doc')
 
 const CSS_URL = 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css'
 
@@ -29,11 +30,16 @@ const swaggerDoc = {
 		{
 			name: 'Board',
 			description: 'Operations about board'
+		},
+		{
+			name: 'Column',
+			description: 'Operations about column in board'
 		}
 	],
 	paths: {
 		...userRouteDoc,
-		...boardRouteDoc
+		...boardRouteDoc,
+		...columnRouteDoc
 	},
 	components: {
 		schemas: {

@@ -1,4 +1,4 @@
-const Board = require('../models/boardModel')
+const { Board } = require('../models/boardModel')
 
 const getBoards = async (req, res) => {
 	let user_id = req.user._id
@@ -25,7 +25,6 @@ const getBoardById = async (req, res) => {
 	try {
 		let userData = await Board.findOne({ user_id })
 		let board = userData.boards.find((b) => b._id == board_id)
-		console.log(board_id)
 
 		if (board) {
 			res.status(200).json(board)
@@ -123,5 +122,12 @@ const updateBoard = async (req, res) => {
 	}
 }
 
-module.exports = { getBoards, getBoardById, createBoard, deleteBoard, updateBoard, removeAllBoards }
+module.exports = {
+	getBoards,
+	getBoardById,
+	createBoard,
+	deleteBoard,
+	updateBoard,
+	removeAllBoards
+}
 

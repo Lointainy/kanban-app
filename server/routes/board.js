@@ -7,6 +7,7 @@ const { getBoards, createBoard, deleteBoard, updateBoard, removeAllBoards, getBo
 
 router.use(requireAuth)
 
+/* Boards */
 router.get('/', getBoards)
 router.get('/:id', getBoardById)
 router.post('/', createBoard)
