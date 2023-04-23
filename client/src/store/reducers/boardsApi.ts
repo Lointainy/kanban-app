@@ -6,7 +6,7 @@ const API_URL = import.meta.env.VITE_API_URL
 export const boardsApi = createApi({
   reducerPath: 'boardsApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: `${API_URL}/boards/`,
+    baseUrl: `${API_URL}`,
     prepareHeaders: (headers, { getState }) => {
       const { auth } = getState() as RootState
       if (auth.token) {
@@ -18,30 +18,48 @@ export const boardsApi = createApi({
   }),
   endpoints: (builder) => ({
     getBoards: builder.query({
-      query: () => '/',
+      query: () => '/boards',
+      providesTags: ['Boards'],
     }),
+
     getSingleBoard: builder.query({
-      query: (id) => `/${id}`,
+      query: (id) => `/boards/${id}`,
+      providesTags: ['Board'],
     }),
+
     addBoard: builder.mutation({
       query: (board) => ({
-        url: '/',
+        url: '/boards',
         method: 'POST',
         body: board,
       }),
+      invalidatesTags: ['Boards'],
     }),
+
     deleteBoard: builder.mutation({
       query: (id) => ({
-        url: `/${id}`,
+        url: `/boards/${id}`,
         method: 'DELETE',
       }),
+      invalidatesTags: ['Boards'],
     }),
+
     updateBoard: builder.mutation({
       query: ({ id, board }) => ({
-        url: `/${id}`,
+        url: `/boards${id}`,
         method: 'PATCH',
         body: board,
       }),
+    }),
+
+    // Column
+    addColumn: builder.mutation({
+      query: ({ id, column }) => ({
+        url: `/columns?boardId=${id}`,
+        method: 'POST',
+        body: column,
+      }),
+      invalidatesTags: ['Board'],
     }),
   }),
 })
@@ -52,4 +70,6 @@ export const {
   useAddBoardMutation,
   useDeleteBoardMutation,
   useUpdateBoardMutation,
+  // Column
+  useAddColumnMutation,
 } = boardsApi
