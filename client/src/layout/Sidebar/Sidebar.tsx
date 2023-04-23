@@ -43,6 +43,10 @@ const Sidebar: React.FC = () => {
     setActiveId(activeBoard._id)
   }, [activeBoard])
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key == 'Enter') handleCreateBoard()
+  }
+
   return (
     <div className={style.sidebar}>
       <div className={style.boards}>
@@ -69,6 +73,7 @@ const Sidebar: React.FC = () => {
                 className={'simple'}
                 value={newBoardName}
                 onChange={handleChangeNewName}
+                onKeyDown={handleKeyDown}
               />
               <button className={style.btn__create} onClick={() => handleCreateBoard()}>
                 <Icon icon="plus" />
