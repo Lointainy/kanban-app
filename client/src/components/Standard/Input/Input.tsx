@@ -14,6 +14,7 @@ interface Props extends PropsWithChildren {
   value: string
   className?: string
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void
 }
 
 const Input: React.FC<Props> = (props) => {
