@@ -10,6 +10,7 @@
 .field.simple {
   grid-template-rows: max-content 2.5rem;
   grid-area: input;
+  row-gap: 0;
 }
 
 .label {
