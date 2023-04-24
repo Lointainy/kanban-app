@@ -66,7 +66,7 @@ export default function CreateItemForm(props: Props) {
             required={true}
             className={'simple'}
             value={value}
-            pattern={'^[a-zA-Z0-9]{3,20}$'}
+            pattern={'^[a-zA-Z0-9 !.,-+=]{3,20}$'}
             onChange={handleChangeValue}
             onKeyDown={handleKeyDown}
           />
