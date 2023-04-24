@@ -8,10 +8,16 @@ import { moveTask } from '@store/reducers/boardSlice'
 import style from './Column.module.scss'
 
 /* Components */
-import { NewTask, Task } from '@components/Board'
+import { CreateItemForm, Task } from '@components/Board'
+import { useAddTaskMutation } from '@/store/reducers/boardsApi'
+import { useParams } from 'react-router-dom'
 
 const Column: React.FC = ({ column }) => {
   const dispatch = useAppDispatch()
+
+  const [addTask] = useAddTaskMutation()
+
+  const { boardId } = useParams()
 
   const onDraggingOver = (e) => {
     e.preventDefault()
@@ -34,6 +40,10 @@ const Column: React.FC = ({ column }) => {
     )
   }
 
+  const handleCreate = (value: string) => {
+    addTask({ boardId: boardId, columnId: column._id, task: { title: value } })
+  }
+
   return (
     <div onDragOver={(e) => onDraggingOver(e)} onDrop={(e) => dragDrop(e)} className={style.column}>
       <span className={style.name}>{column.name}</span>
@@ -42,7 +52,7 @@ const Column: React.FC = ({ column }) => {
           return <Task task={task} key={task._id} columnId={column._id} taskIndex={index} onDrop={dragDrop} />
         })}
         <div className={style.add}>
-          <NewTask columnId={column._id} />
+          <CreateItemForm title={'task'} createItem={handleCreate} />
         </div>
       </div>
     </div>
