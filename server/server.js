@@ -9,6 +9,7 @@ const connectDB = require('./config/connectDB')
 const userRoutes = require('./routes/user')
 const boardRoutes = require('./routes/board')
 const columnRoutes = require('./routes/column')
+const taskRoutes = require('./routes/task')
 
 const swaggerUI = require('swagger-ui-express')
 const { swaggerDoc, optionDoc } = require('./doc/documentation')
@@ -49,6 +50,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use('/api/user', userRoutes)
 app.use('/api/boards', boardRoutes)
 app.use('/api/columns', columnRoutes)
+app.use('/api/tasks', taskRoutes)
 
 const startServer = async () => {
 	try {
