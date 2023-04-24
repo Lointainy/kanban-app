@@ -42,7 +42,7 @@ const Column: React.FC = ({ column }) => {
           return <Task task={task} key={task._id} columnId={column._id} taskIndex={index} onDrop={dragDrop} />
         })}
         <div className={style.add}>
-          <NewTask />
+          <NewTask columnId={column._id} />
         </div>
       </div>
     </div>

@@ -5,15 +5,15 @@ import style from './NewTask.module.scss'
 
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import { Input } from '@components'
-import { useAddColumnMutation } from '@/store/reducers/boardsApi'
+import { useAddTaskMutation } from '@/store/reducers/boardsApi'
 import { useParams } from 'react-router-dom'
 
-export default function NewTask() {
+export default function NewTask({ columnId }) {
   const [taskName, setTaskName] = useState('')
 
   const { toggle, handleToggle, setToggle } = useToggle(false)
 
-  const [addColumn] = useAddColumnMutation()
+  const [addTask] = useAddTaskMutation()
 
   const { boardId } = useParams()
 
@@ -21,12 +21,12 @@ export default function NewTask() {
     setTaskName(e.target.value)
   }
 
-  const handleCreateColumn = () => {
+  const handleCreateTask = () => {
     setToggle(false)
-    addColumn({ id: boardId, column: { name: taskName } })
+    addTask({ boardId: boardId, columnId: columnId, task: { title: taskName } })
   }
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') handleCreateColumn()
+    if (e.key === 'Enter') handleCreateTask()
   }
 
   return (
@@ -42,7 +42,7 @@ export default function NewTask() {
             onChange={handleChangeName}
             onKeyDown={handleKeyDown}
           />
-          <button className={style.btn__create} onClick={() => handleCreateColumn()}>
+          <button className={style.btn__create} onClick={() => handleCreateTask()}>
             <Icon icon="plus" />
             <span>create</span>
           </button>
