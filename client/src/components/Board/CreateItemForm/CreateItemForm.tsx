@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 /* Hooks */
 import { useToggle } from '@hooks/useToggle'
@@ -14,12 +14,14 @@ import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 
 type Props = {
   title: string
-  buttons: boolean
+  buttons?: boolean
   createItem: (value: string) => void
 }
 
 export default function CreateItemForm(props: Props) {
   const { title, createItem, buttons } = props
+
+  const formRef = useRef<HTMLFormElement>(null)
 
   const [value, setValue] = useState('')
 
@@ -29,15 +31,20 @@ export default function CreateItemForm(props: Props) {
     setValue(e.target.value)
   }
 
-  const handleCreate = (e) => {
+  function handleCreate(e) {
     e.preventDefault()
     setToggle(false)
     createItem(value)
     setValue('')
   }
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') handleCreate(e)
+  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      if (formRef.current) {
+        formRef.current.requestSubmit()
+      }
+    }
   }
 
   const handleOpen = () => {
@@ -50,7 +57,7 @@ export default function CreateItemForm(props: Props) {
   }
 
   return (
-    <form className={`${style.create}`} onClick={handleOpen} onSubmit={handleCreate}>
+    <form className={`${style.create}`} onClick={handleOpen} onSubmit={handleCreate} ref={formRef}>
       {toggle && (
         <div className={`${style.create__field} ${buttons && style.full}`} onClick={(e) => e.stopPropagation()}>
           <Input
