@@ -8,7 +8,7 @@ import { moveTask } from '@store/reducers/boardSlice'
 import style from './Column.module.scss'
 
 /* Components */
-import { Task } from '@components/Board'
+import { NewTask, Task } from '@components/Board'
 
 const Column: React.FC = ({ column }) => {
   const dispatch = useAppDispatch()
@@ -18,10 +18,10 @@ const Column: React.FC = ({ column }) => {
   }
 
   const dragDrop = (e) => {
-    let transferedTaskId = e.dataTransfer.getData('taskId')
-    let parentColumnId = e.dataTransfer.getData('parentColumnId')
-    let transferedTaskIndex = e.dataTransfer.getData('taskIndex')
-    let newTaskId = e.target.id
+    const transferedTaskId = e.dataTransfer.getData('taskId')
+    const parentColumnId = e.dataTransfer.getData('parentColumnId')
+    const transferedTaskIndex = e.dataTransfer.getData('taskIndex')
+    const newTaskId = e.target.id
 
     dispatch(
       moveTask({
@@ -41,7 +41,9 @@ const Column: React.FC = ({ column }) => {
         {column?.tasks.map((task, index) => {
           return <Task task={task} key={task._id} columnId={column._id} taskIndex={index} onDrop={dragDrop} />
         })}
-        <button className={style.tasks__add}>add task</button>
+        <div className={style.add}>
+          <NewTask />
+        </div>
       </div>
     </div>
   )

@@ -18,3 +18,15 @@
   grid-auto-flow: row;
   row-gap: 1.25rem;
 }
+
+.add {
+  display: none;
+}
+
+.column {
+  &:hover {
+    .add {
+      display: block;
+    }
+  }
+}
