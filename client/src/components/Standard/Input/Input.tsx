@@ -31,6 +31,7 @@ const Input: React.FC<Props> = (props) => {
   return (
     <div className={`${style.field} ${className && style[className]}`}>
       <input
+        autoFocus
         type="text"
         {...inputProps}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e)}
