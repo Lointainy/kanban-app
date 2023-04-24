@@ -5,6 +5,7 @@ const userRouteDoc = require('./routes/userRoutes.doc')
 const boardRouteDoc = require('./routes/boardRoutes.doc')
 const columnRouteDoc = require('./routes/columnRoutes.doc')
 const taskRouteDoc = require('./routes/taskRoutes.doc')
+const subtaskRouteDoc = require('./routes/subtaskRoutes.doc')
 
 const CSS_URL = 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css'
 
@@ -39,13 +40,18 @@ const swaggerDoc = {
 		{
 			name: 'Task',
 			description: 'Operations about task in column'
+		},
+		{
+			name: 'Subtask',
+			description: 'Operations about subtask in task'
 		}
 	],
 	paths: {
 		...userRouteDoc,
 		...boardRouteDoc,
 		...columnRouteDoc,
-		...taskRouteDoc
+		...taskRouteDoc,
+		...subtaskRouteDoc
 	},
 	components: {
 		schemas: {
