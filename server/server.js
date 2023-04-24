@@ -10,6 +10,7 @@ const userRoutes = require('./routes/user')
 const boardRoutes = require('./routes/board')
 const columnRoutes = require('./routes/column')
 const taskRoutes = require('./routes/task')
+const subtaskRoutes = require('./routes/subtask')
 
 const swaggerUI = require('swagger-ui-express')
 const { swaggerDoc, optionDoc } = require('./doc/documentation')
@@ -51,6 +52,7 @@ app.use('/api/user', userRoutes)
 app.use('/api/boards', boardRoutes)
 app.use('/api/columns', columnRoutes)
 app.use('/api/tasks', taskRoutes)
+app.use('/api/subtasks', subtaskRoutes)
 
 const startServer = async () => {
 	try {
