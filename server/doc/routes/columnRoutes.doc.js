@@ -1,4 +1,4 @@
-const createBoard = {
+const createColumn = {
 	summary: 'Create column in board',
 	description: 'please enter token for auth user, after that you can create column data',
 	tags: ['Column'],
@@ -48,53 +48,9 @@ const createBoard = {
 	}
 }
 
-// const updateBoardById = {
-// 	summary: 'Update board by id',
-// 	description: 'please enter token for auth user, after that you can delete board data',
-// 	tags: ['Board'],
-// 	security: [{ bearerAuth: [] }],
-// 	parameters: [
-// 		{
-// 			name: 'id',
-// 			in: 'path',
-// 			description: 'board id to update',
-// 			required: true,
-// 			schema: {
-// 				type: 'string'
-// 			}
-// 		}
-// 	],
-// 	requestBody: {
-// 		description: 'Created board object',
-// 		content: {
-// 			' application/json': {
-// 				schema: {
-// 					$ref: '#/components/schemas/Board'
-// 				}
-// 			}
-// 		}
-// 	},
-// 	responses: {
-// 		200: {
-// 			description: 'Updated board by id',
-// 			content: {
-// 				'application/json': {
-// 					example: 'Board was Updated'
-// 				}
-// 			}
-// 		},
-// 		400: {
-// 			description: 'No such Boards'
-// 		},
-// 		500: {
-// 			description: 'Error message'
-// 		}
-// 	}
-// }
-
 const columnRouteDoc = {
 	'/columns': {
-		post: createBoard
+		post: createColumn
 	}
 }
 
