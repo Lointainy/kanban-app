@@ -1,6 +1,6 @@
 const createTask = {
 	summary: 'Create task in column',
-	description: 'please enter token for auth user, after that you can create column data',
+	description: 'please enter token for auth user, after that you can create task data',
 	tags: ['Task'],
 	parameters: [
 		{
