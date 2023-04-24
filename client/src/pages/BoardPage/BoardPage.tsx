@@ -6,21 +6,23 @@ import { useParams } from 'react-router-dom'
 /* Store */
 import { useAppDispatch, useAppSelector } from '@hooks/useRedux'
 import { setActiveBoard } from '@store/reducers/boardSlice'
-import { useGetSingleBoardQuery, useUpdateBoardMutation } from '@store/reducers/boardsApi'
+import { useAddColumnMutation, useGetSingleBoardQuery, useUpdateBoardMutation } from '@store/reducers/boardsApi'
 
 /* Style */
 import style from './BoardPage.module.scss'
 
 /* Components */
-import { Column, NewColumn } from '@components/Board'
+import { Column, CreateItemForm } from '@components/Board'
 
 const BoardPage: React.FC = () => {
   const dispatch = useAppDispatch()
 
+  const [addColumn] = useAddColumnMutation()
+
   // Get page params (board id)
   const { boardId } = useParams()
 
-  const { activeBoard, boards } = useAppSelector((store) => store.boards)
+  const { activeBoard } = useAppSelector((store) => store.boards)
 
   const userLogined = useAppSelector((store) => store.auth.login)
 
@@ -47,13 +49,19 @@ const BoardPage: React.FC = () => {
     }
   }, [activeBoard])
 
+  const handleCreate = (value: string) => {
+    addColumn({ id: boardId, column: { name: value } })
+  }
+
   return (
     <div className={style.page}>
       <div className={style.columns}>
         {activeBoard?.columns?.map((column) => {
           return <Column column={column} key={column._id} />
         })}
-        <NewColumn />
+        <div className={style.add}>
+          <CreateItemForm title={'column'} createItem={handleCreate} />
+        </div>
       </div>
     </div>
   )
