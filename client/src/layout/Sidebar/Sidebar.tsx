@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 
 /* Store */
 import { useAppSelector } from '@hooks/useRedux'
+import { useAddBoardMutation } from '@store/reducers/boardsApi'
 
 /* Routes */
 import { NavLink } from 'react-router-dom'
@@ -10,42 +11,28 @@ import { NavLink } from 'react-router-dom'
 import style from './Sidebar.module.scss'
 
 /* Components */
-import { Input, ThemeSwitcher } from '@components'
+import { ThemeSwitcher } from '@components'
+import { CreateItemForm } from '@components/Board'
 
 /* Icons */
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
-import { useToggle } from '@/hooks/useToggle'
-import { useAddBoardMutation } from '@/store/reducers/boardsApi'
 
 const Sidebar: React.FC = () => {
   const { boards, activeBoard } = useAppSelector((store) => store.boards)
 
   const [activeId, setActiveId] = useState('')
 
-  const { toggle: createDropdown, handleToggle: createDropdownToggle, setToggle: setCreateDropdown } = useToggle(false)
-
-  const [newBoardName, setNewBoardName] = useState('')
-
   const boardsLength = boards ? boards.length : 0
 
   const [addBoard, { isLoading, isSuccess }] = useAddBoardMutation()
 
-  const handleChangeNewName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewBoardName(e.target.value)
-  }
-
-  const handleCreateBoard = () => {
-    addBoard({ name: newBoardName })
-    setCreateDropdown(false)
+  const handleCreateBoard = (boardName: string) => {
+    addBoard({ name: boardName })
   }
 
   useEffect(() => {
     setActiveId(activeBoard._id)
   }, [activeBoard])
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key == 'Enter') handleCreateBoard()
-  }
 
   return (
     <div className={style.sidebar}>
@@ -63,34 +50,7 @@ const Sidebar: React.FC = () => {
             )
           })}
         </ul>
-        <div className={`${style.create}`}>
-          {createDropdown && (
-            <div className={style.create__field}>
-              <Input
-                name={'create'}
-                placeholder={'Enter the board name'}
-                required={true}
-                className={'simple'}
-                value={newBoardName}
-                onChange={handleChangeNewName}
-                onKeyDown={handleKeyDown}
-              />
-              <button className={style.btn__create} onClick={() => handleCreateBoard()}>
-                <Icon icon="plus" />
-                <span>create</span>
-              </button>
-              <button className={style.btn__cancel} onClick={createDropdownToggle}>
-                <span>Cancel</span>
-              </button>
-            </div>
-          )}
-          {!createDropdown && (
-            <button className={`${style.btn}`} onClick={createDropdownToggle}>
-              <Icon icon="plus" />
-              <span>Create New Board</span>
-            </button>
-          )}
-        </div>
+        <CreateItemForm title={'board'} buttons={true} createItem={handleCreateBoard} />
       </div>
       <ThemeSwitcher />
     </div>
