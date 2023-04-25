@@ -18,7 +18,7 @@ const createSubtask = async (req, res) => {
 		!task && res.status(404).json({ msg: `No task with id:${taskId}` })
 
 		if (task) {
-			task.subtasks.push({ ...newSubtask })
+			task.subtasks.push({ ...newSubtask, isCompleted: false })
 			await userData.save()
 			res.status(200).json(`New Subtask in task are created`)
 		}
