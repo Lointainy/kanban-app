@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react'
-
 /* Store */
 import { useAppDispatch } from '@hooks/useRedux'
 import { moveTask, setActiveColumn, setActiveTask } from '@store/reducers/boardSlice'
