@@ -9,8 +9,9 @@ import style from './Column.module.scss'
 
 /* Components */
 import { CreateItemForm, Task } from '@components/Board'
-import { useAddTaskMutation } from '@/store/reducers/boardsApi'
+import { useAddTaskMutation, useDeleteColumnMutation } from '@/store/reducers/boardsApi'
 import { useParams } from 'react-router-dom'
+import DropdownOptions from '@/components/DropdownOptions/DropdownOptions'
 
 const Column: React.FC = ({ column }) => {
   const dispatch = useAppDispatch()
@@ -18,6 +19,13 @@ const Column: React.FC = ({ column }) => {
   const [addTask] = useAddTaskMutation()
 
   const { boardId } = useParams()
+
+  const options = [
+    { label: 'Edit column', onClick: handleEditColumn },
+    { label: 'Delete column', error: true, onClick: handleDeleteColumn },
+  ]
+
+  const [deleteColumn] = useDeleteColumnMutation()
 
   const onDraggingOver = (e) => {
     e.preventDefault()
@@ -49,9 +57,20 @@ const Column: React.FC = ({ column }) => {
     dispatch(setActiveColumn(column))
   }
 
+  function handleDeleteColumn() {
+    deleteColumn({ boardId: boardId, columnId: column._id })
+  }
+
+  function handleEditColumn() {
+    console.log('edit')
+  }
+
   return (
     <div onDragOver={(e) => onDraggingOver(e)} onDrop={(e) => dragDrop(e)} className={style.column}>
-      <span className={style.name}>{column.name}</span>
+      <div className={style.head}>
+        <span className={style.name}>{column.name}</span>
+        <DropdownOptions options={options} fieldStyle={'invert'} />
+      </div>
       <div className={style.tasks}>
         {column?.tasks.map((task, index) => {
           return (

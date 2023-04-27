@@ -7,6 +7,13 @@
   row-gap: 1.5rem;
 }
 
+.head {
+  display: grid;
+  justify-content: space-between;
+  grid-auto-flow: column;
+  align-items: center;
+}
+
 .name {
   @include body-m;
   text-transform: uppercase;
