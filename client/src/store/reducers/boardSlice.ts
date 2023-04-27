@@ -3,6 +3,8 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
   boards: [],
   activeBoard: {},
+  activeColumn: {},
+  activeTask: {},
   isLoading: true,
 }
 
@@ -10,51 +12,19 @@ export const boardsSlice = createSlice({
   name: 'boards',
   initialState,
   reducers: {
-    resetBoards: (state) => {
-      state.boards = []
-      state.activeBoard = {}
-      state.isLoading = true
+    setActiveColumn: (state, action) => {
+      const column = action.payload
+      state.activeColumn = column
     },
-    setBoards: (state, action) => {
-      state.boards = action.payload
-      state.isLoading = false
-      // console.log(JSON.stringify(state.boards))
+
+    setActiveTask: (state, action) => {
+      const task = action.payload
+      state.activeTask = task
     },
 
     setActiveBoard: (state, action) => {
       const board = action.payload
-
       state.activeBoard = board
-    },
-    deleteTask: (state, action) => {
-      const taskId = action.payload
-
-      const updatedColumns = state.activeBoard.columns.map((column) => {
-        return {
-          ...column,
-          tasks: column.tasks.filter((task) => task._id !== taskId),
-        }
-      })
-
-      state.activeBoard = { ...state.activeBoard, columns: updatedColumns }
-    },
-    updateTask: (state, action) => {
-      const updatedTask = action.payload
-
-      const updatedColumns = state.activeBoard.columns.map((column) => {
-        return {
-          ...column,
-          tasks: column.tasks.map((task) => {
-            if (task._id === updatedTask._id) {
-              return updatedTask
-            } else {
-              return task
-            }
-          }),
-        }
-      })
-
-      state.activeBoard = { ...state.activeBoard, columns: updatedColumns }
     },
     moveTask: (state, action) => {
       const taskId = action.payload.taskId
@@ -101,6 +71,6 @@ export const boardsSlice = createSlice({
   },
 })
 
-export const { resetBoards, setBoards, setActiveBoard, updateTask, moveTask, deleteTask } = boardsSlice.actions
+export const { setActiveColumn, setActiveBoard, setActiveTask, moveTask } = boardsSlice.actions
 
 export default boardsSlice.reducer

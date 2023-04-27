@@ -6,7 +6,6 @@ import { NavLink, useLocation } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '@hooks/useRedux'
 import { logout } from '@store/reducers/authSlice'
 import { openModal } from '@store/reducers/modalSlice'
-import { resetBoards } from '@store/reducers/boardSlice'
 
 /* Hooks */
 import { useToggle } from '@hooks/useToggle'
@@ -44,7 +43,7 @@ const Header: React.FC = () => {
         dispatch(openModal({ name: 'EditBoard', data: board }))
         break
       case 'DeleteBoard':
-        dispatch(openModal({ name: 'DeleteBoard', data: board }))
+        dispatch(openModal({ name: 'DeleteBoard' }))
         break
     }
 
@@ -53,7 +52,6 @@ const Header: React.FC = () => {
 
   const handleLogout = () => {
     dispatch(logout())
-    dispatch(resetBoards())
     return setOptionDropdown(false)
   }
 
@@ -94,14 +92,18 @@ const Header: React.FC = () => {
         {optionDropdown && (
           <div className={style.option__dropdown} onClick={(e) => e.stopPropagation()}>
             <ul className={style.option__dropdown_list}>
-              <li className={style.option__dropdown_item} onClick={() => handleOption('EditBoard')}>
-                Edit Board
-              </li>
-              <li
-                className={`${style.option__dropdown_item} ${style.error}`}
-                onClick={() => handleOption('DeleteBoard')}>
-                Delete Board
-              </li>
+              {pathname.includes('/board/') && (
+                <>
+                  <li className={style.option__dropdown_item} onClick={() => handleOption('EditBoard')}>
+                    Edit Board
+                  </li>
+                  <li
+                    className={`${style.option__dropdown_item} ${style.error}`}
+                    onClick={() => handleOption('DeleteBoard')}>
+                    Delete Board
+                  </li>
+                </>
+              )}
               <li className={`${style.option__dropdown_item} ${style.error}`} onClick={() => handleLogout()}>
                 Logout
               </li>

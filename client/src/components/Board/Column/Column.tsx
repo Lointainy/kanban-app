@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 /* Store */
 import { useAppDispatch } from '@hooks/useRedux'
-import { moveTask } from '@store/reducers/boardSlice'
+import { moveTask, setActiveColumn, setActiveTask } from '@store/reducers/boardSlice'
 
 /* Styles */
 import style from './Column.module.scss'
@@ -44,12 +44,26 @@ const Column: React.FC = ({ column }) => {
     addTask({ boardId: boardId, columnId: column._id, task: { title: value } })
   }
 
+  const setActive = (task) => {
+    dispatch(setActiveTask(task))
+    dispatch(setActiveColumn(column))
+  }
+
   return (
     <div onDragOver={(e) => onDraggingOver(e)} onDrop={(e) => dragDrop(e)} className={style.column}>
       <span className={style.name}>{column.name}</span>
       <div className={style.tasks}>
         {column?.tasks.map((task, index) => {
-          return <Task task={task} key={task._id} columnId={column._id} taskIndex={index} onDrop={dragDrop} />
+          return (
+            <Task
+              task={task}
+              key={task._id}
+              columnId={column._id}
+              taskIndex={index}
+              onDrop={dragDrop}
+              onOpen={setActive}
+            />
+          )
         })}
         <div className={style.add}>
           <CreateItemForm title={'task'} createItem={handleCreate} />

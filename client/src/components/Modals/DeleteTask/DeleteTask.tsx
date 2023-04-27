@@ -1,17 +1,20 @@
 /* Styles */
-import { deleteTask } from '@/store/reducers/boardSlice'
 import style from './DeleteTask.module.scss'
 
 /* Store */
 import { useAppDispatch } from '@hooks/useRedux'
 import { closeModal } from '@store/reducers/modalSlice'
+import { useDeleteTaskMutation } from '@store/reducers/boardsApi'
 
 const DeleteTask: React.FC = ({ id, name }) => {
   const dispatch = useAppDispatch()
 
+  const [deleteTask] = useDeleteTaskMutation()
+
   const handleDeleteTask = () => {
     dispatch(closeModal())
-    dispatch(deleteTask(id))
+    console.log(id)
+    deleteTask({ boardId: id.board, columnId: id.column, taskId: id.task })
   }
 
   return (

@@ -20,6 +20,14 @@ const Modals: React.FC = () => {
   // Get modal from store
   const modal = useAppSelector((store) => store.modal)
 
+  const { activeBoard: board, activeTask: task, activeColumn: column } = useAppSelector((store) => store.boards)
+
+  const activeId = {
+    board: board._id,
+    column: column._id,
+    task: task._id,
+  }
+
   // Close modal
   const handleClose = () => {
     dispatch(closeModal())
@@ -30,12 +38,12 @@ const Modals: React.FC = () => {
         <div className={style.overlay} onClick={handleClose}>
           <div className={style.modal} onClick={(e) => e.stopPropagation()}>
             {modal.name == 'AddNewTask' && <AddNewTask />}
-            {modal.name == 'ViewTask' && <ViewTask task={modal.data} />}
+            {modal.name == 'ViewTask' && <ViewTask task={task} />}
             {modal.name == 'EditTask' && <EditTask task={modal.data} />}
-            {modal.name == 'DeleteTask' && <DeleteTask id={modal.data._id} name={modal.data.title} />}
+            {modal.name == 'DeleteTask' && <DeleteTask id={activeId} name={task.title} />}
             {modal.name == 'AddNewBoard' && <AddNewBoard />}
             {modal.name == 'EditBoard' && <EditBoard board={modal.data} />}
-            {modal.name == 'DeleteBoard' && <DeleteBoard id={modal.data._id} name={modal.data.name} />}
+            {modal.name == 'DeleteBoard' && <DeleteBoard id={board._id} name={board.name} />}
           </div>
         </div>
       )}

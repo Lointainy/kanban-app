@@ -57,11 +57,6 @@ const ViewTask: React.FC = (props) => {
     statusDropdownToggle()
   }
 
-  // After change task set updated task to store
-  useEffect(() => {
-    dispatch(updateTask(task))
-  }, [task])
-
   return (
     <div className={style.field}>
       <div className={style.wrapper}>

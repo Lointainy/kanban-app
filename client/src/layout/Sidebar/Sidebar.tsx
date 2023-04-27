@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 
 /* Store */
-import { useAppSelector } from '@hooks/useRedux'
 import { useAddBoardMutation } from '@store/reducers/boardsApi'
 
 /* Routes */
@@ -16,39 +15,60 @@ import { CreateItemForm } from '@components/Board'
 
 /* Icons */
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
+import { useAppSelector } from '@/hooks/useRedux'
 
-const Sidebar: React.FC = () => {
-  const { boards, activeBoard } = useAppSelector((store) => store.boards)
+const Sidebar: React.FC = ({ boards }) => {
+  const { _id: boardId } = useAppSelector((store) => store.boards.activeBoard)
 
   const [activeId, setActiveId] = useState('')
 
-  const boardsLength = boards ? boards.length : 0
+  const boardsLength = boards.data ? boards.data.length : 0
 
-  const [addBoard, { isLoading, isSuccess }] = useAddBoardMutation()
+  const addBoard = useAddBoardMutation()
 
   const handleCreateBoard = (boardName: string) => {
-    addBoard({ name: boardName })
+    addBoard[0]({ name: boardName })
+  }
+
+  const handleClickBoard = (board) => {
+    setActiveId(board._id)
   }
 
   useEffect(() => {
-    setActiveId(activeBoard._id)
-  }, [activeBoard])
+    if (boardId) {
+      setActiveId(boardId)
+    }
+  }, [boardId])
 
   return (
     <div className={style.sidebar}>
       <div className={style.boards}>
         <span className={style.title}>all boards {`(${boardsLength})`}</span>
         <ul className={style.links}>
-          {boards.map((board) => {
-            return (
-              <li key={board._id} className={`${style.item} ${board._id === activeId ? style.active : ''} `}>
-                <NavLink to={`board/${board._id}`} className={style.link}>
-                  <Icon icon="layer-group" className={style.icon} />
-                  <span className={style.name}>{board.name}</span>
-                </NavLink>
+          {boards.isSuccess &&
+            boards?.data.map((board) => {
+              return (
+                <li
+                  key={board._id}
+                  className={`${style.item} ${activeId == board._id && style.active}`}
+                  onClick={() => handleClickBoard(board)}>
+                  <NavLink to={`board/${board._id}`} className={style.link}>
+                    <Icon icon="layer-group" className={style.icon} />
+                    <span className={style.name}>{board.name}</span>
+                  </NavLink>
+                </li>
+              )
+            })}
+          {boards.isLoading && (
+            <>
+              <li className={`${style.item} ${style.skelet}`}>
+                <div className={style.link}>
+                  <div className={style.icon}></div>
+                  <span className={style.name}></span>
+                </div>
               </li>
-            )
-          })}
+            </>
+          )}
         </ul>
         <CreateItemForm title={'board'} buttons={true} createItem={handleCreateBoard} />
       </div>

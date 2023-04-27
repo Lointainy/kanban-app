@@ -6,7 +6,7 @@ import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 /* Store */
 import { useAppDispatch, useAppSelector } from '@hooks/useRedux'
 import { setTheme } from '@store/reducers/uiSlice'
-import { setActiveBoard, setBoards } from '@store/reducers/boardSlice'
+import { setActiveBoard } from '@store/reducers/boardSlice'
 import { useGetBoardsQuery } from '@store/reducers/boardsApi'
 
 /* Hooks */
@@ -42,7 +42,7 @@ export const App: React.FC = () => {
   }, [dispatch])
 
   // Get data from API
-  const boardsFromApi = useGetBoardsQuery('')
+  const boards = useGetBoardsQuery('')
 
   useEffect(() => {
     // Check the Path reset active board
@@ -52,20 +52,16 @@ export const App: React.FC = () => {
 
     // If user is logged in, fetch boards data and set it to store
     if (userLogined) {
-      boardsFromApi.refetch().then(() => {
-        if (boardsFromApi.isSuccess) {
-          dispatch(setBoards(boardsFromApi.data))
-        }
-      })
+      boards.refetch()
     }
-  }, [userLogined, pathname, boardsFromApi.data, boardsFromApi.isLoading, boardsFromApi.isSuccess])
+  }, [userLogined, pathname, boards.data, boards.isLoading, boards.isSuccess])
 
   if (userLogined && !pathname.includes('/login')) {
     return (
       <div className={`${style.app} ${theme}`}>
         {modalOpen && <Modals />}
         <Header />
-        <Sidebar />
+        <Sidebar boards={boards} />
         <div className={style.content}>
           <Routes>
             <Route index element={<HomePage />} />
