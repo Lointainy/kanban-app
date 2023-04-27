@@ -17,6 +17,7 @@ import style from './ViewTask.module.scss'
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import { openModal } from '@store/reducers/modalSlice'
 import CheckBox from '@/components/Standard/CheckBox/CheckBox'
+import DropdownOptions from '@/components/DropdownOptions/DropdownOptions'
 
 const ViewTask: React.FC = (props) => {
   const dispatch = useAppDispatch()
@@ -25,7 +26,6 @@ const ViewTask: React.FC = (props) => {
   const [task, setTask] = useState(props.task)
 
   // Dropdown Toggle
-  const { toggle: optionDropdown, handleToggle: optionDropdownToggle } = useToggle(false)
   const { toggle: statusDropdown, handleToggle: statusDropdownToggle } = useToggle(false)
 
   // Counting completed tasks and their total number
@@ -57,31 +57,34 @@ const ViewTask: React.FC = (props) => {
     statusDropdownToggle()
   }
 
+  const options = [
+    {
+      label: 'Edit task',
+      onClick: () => handleClickOption('EditTask'),
+    },
+    {
+      label: 'Delete task',
+      error: true,
+      onClick: () => handleClickOption('DeleteTask'),
+    },
+  ]
+
+  const handleClickOption = (name: string) => {
+    switch (name) {
+      case 'EditTask':
+        dispatch(openModal({ name: 'EditTask' }))
+        break
+      case 'DeleteTask':
+        dispatch(openModal({ name: 'DeleteTask' }))
+        break
+    }
+  }
+
   return (
     <div className={style.field}>
       <div className={style.wrapper}>
         <h2 className={style.title}>{task.title}</h2>
-        <div className={style.option}>
-          <button className={style.button} onClick={optionDropdownToggle}>
-            <Icon icon="ellipsis-vertical" className={style.icon} />
-          </button>
-          {optionDropdown && (
-            <div className={style.option__dropdown}>
-              <ul className={style.option__dropdown_list}>
-                <li
-                  className={style.option__dropdown_item}
-                  onClick={() => dispatch(openModal({ name: 'EditTask', data: props.task }))}>
-                  Edit task
-                </li>
-                <li
-                  className={`${style.option__dropdown_item} ${style.error}`}
-                  onClick={() => dispatch(openModal({ name: 'DeleteTask', data: props.task }))}>
-                  delete task
-                </li>
-              </ul>
-            </div>
-          )}
-        </div>
+        <DropdownOptions options={options} />
       </div>
       <p className={style.desc}>{task?.description ? task.description : 'no description'}</p>
       <span className={style.subtitle}>{`Subtasks (${completed} of ${total})`}</span>
