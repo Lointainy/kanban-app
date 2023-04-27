@@ -1,15 +1,17 @@
+/* Router */
+import { useParams } from 'react-router-dom'
+
 /* Store */
 import { useAppDispatch } from '@hooks/useRedux'
 import { moveTask, setActiveColumn, setActiveTask } from '@store/reducers/boardSlice'
+import { useAddTaskMutation, useDeleteColumnMutation } from '@store/reducers/boardsApi'
 
 /* Styles */
 import style from './Column.module.scss'
 
 /* Components */
 import { CreateItemForm, Task } from '@components/Board'
-import { useAddTaskMutation, useDeleteColumnMutation } from '@/store/reducers/boardsApi'
-import { useParams } from 'react-router-dom'
-import DropdownOptions from '@/components/DropdownOptions/DropdownOptions'
+import { DropdownOptions } from '@components'
 
 const Column: React.FC = ({ column }) => {
   const dispatch = useAppDispatch()
