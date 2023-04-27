@@ -41,6 +41,7 @@
   grid-auto-flow: column;
   justify-content: start;
   align-items: center;
+  grid-template-columns: 16px 1fr;
   column-gap: 1rem;
   height: 100%;
   margin-left: -2rem;
@@ -61,5 +62,49 @@
 
   &:hover {
     background: color(btnPrHover);
+  }
+}
+
+.item.skelet {
+  height: 100%;
+  opacity: 0.5;
+  animation: pulse 0.5s infinite;
+
+  .link {
+    &:hover {
+      background: none;
+    }
+  }
+
+  .icon {
+    display: block;
+    content: '';
+    height: 16px;
+    width: 16px;
+    background: color(subTitle);
+    border-radius: 50%;
+  }
+
+  .name {
+    display: block;
+    content: '';
+    height: 16px;
+    width: 100%;
+    background: color(subTitle);
+    border-radius: $border-radius;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.25;
+  }
+
+  70% {
+    opacity: 0.15;
+  }
+
+  100% {
+    opacity: 0.05;
   }
 }
