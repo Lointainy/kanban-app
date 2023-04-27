@@ -31,18 +31,23 @@ const Header: React.FC = () => {
   // Location path
   const { pathname } = useLocation()
 
-  const options = [
-    pathname.includes('/board/') && {
-      label: 'Edit board',
-      onClick: () => handleClickOption('EditBoard'),
-    },
-    pathname.includes('/board/') && {
-      label: 'Delete board',
-      error: true,
-      onClick: () => handleClickOption('DeleteBoard'),
-    },
-    { label: 'Logout', error: true, onClick: () => handleClickOption('Logout') },
-  ]
+  const options = []
+
+  if (pathname.includes('/board/')) {
+    options.push(
+      {
+        label: 'Edit board',
+        onClick: () => handleClickOption('EditBoard'),
+      },
+      {
+        label: 'Delete board',
+        error: true,
+        onClick: () => handleClickOption('DeleteBoard'),
+      }
+    )
+  }
+
+  options.push({ label: 'Logout', error: true, onClick: () => handleClickOption('Logout') })
 
   const handleClickOption = (name: string) => {
     switch (name) {
