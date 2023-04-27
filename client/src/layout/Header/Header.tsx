@@ -77,7 +77,7 @@ const Header: React.FC = () => {
 
       <h1 className={style.title}>{pathname.includes('/board/') && board.name}</h1>
 
-      <button className={style.btn}>
+      <button className={style.btn} onClick={() => handleClickOption('AddNewTask')}>
         <Icon icon="plus" />
         <span>Add new task</span>
       </button>
