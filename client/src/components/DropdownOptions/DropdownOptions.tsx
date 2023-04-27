@@ -16,9 +16,10 @@ type Props = {
     onClick: () => void
   }[]
   fieldStyle?: string
+  buttonStyle?: string
 }
 
-export default function DropdownOptions({ options, fieldStyle }: Props) {
+export default function DropdownOptions({ options, fieldStyle, buttonStyle }: Props) {
   const { toggle, setToggle, handleToggle } = useToggle(false)
 
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -42,12 +43,12 @@ export default function DropdownOptions({ options, fieldStyle }: Props) {
   }, [])
 
   return (
-    <div className={`${style.option} ${style[fieldStyle]}`} ref={dropdownRef}>
-      <button className={style.button} onClick={handleToggle}>
+    <div className={`${style.option}`} ref={dropdownRef}>
+      <button className={`${style.button} ${buttonStyle && style[buttonStyle]}`} onClick={handleToggle}>
         <Icon icon="ellipsis-vertical" className={style.icon} />
       </button>
       {toggle && (
-        <div className={style.dropdown} onClick={(e) => e.stopPropagation()}>
+        <div className={`${style.dropdown} ${fieldStyle && style[fieldStyle]}`} onClick={(e) => e.stopPropagation()}>
           <ul className={style.list}>
             {options.map((option, index) => (
               <li

@@ -63,14 +63,12 @@
 
 /* Invert styles */
 
-.option.invert {
-  .button {
-    &:hover {
-      background: color(fieldBg);
-    }
-  }
-
-  .dropdown {
+.button.invert {
+  &:hover {
     background: color(fieldBg);
   }
+}
+
+.dropdown.invert {
+  background: color(fieldBg);
 }

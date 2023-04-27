@@ -69,7 +69,7 @@ const Column: React.FC = ({ column }) => {
     <div onDragOver={(e) => onDraggingOver(e)} onDrop={(e) => dragDrop(e)} className={style.column}>
       <div className={style.head}>
         <span className={style.name}>{column.name}</span>
-        <DropdownOptions options={options} fieldStyle={'invert'} />
+        <DropdownOptions options={options} fieldStyle={'invert'} buttonStyle={'invert'} />
       </div>
       <div className={style.tasks}>
         {column?.tasks.map((task, index) => {
