@@ -1,3 +1,53 @@
+const taskSchema = {
+	type: 'array',
+	items: {
+		type: 'object',
+		properties: {
+			title: {
+				type: 'string',
+				example: 'Build UI for onboarding flow'
+			},
+			description: {
+				type: 'string'
+			},
+			status: {
+				type: 'string',
+				status: 'Todo'
+			},
+			subtasks: {
+				type: 'array',
+				items: {
+					type: 'object',
+					properties: {
+						title: {
+							type: 'string',
+							example: 'Sign up page'
+						},
+						isCompleted: {
+							type: 'boolean',
+							example: false
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+const columnSchema = {
+	type: 'array',
+	items: {
+		type: 'object',
+		properties: {
+			name: {
+				type: 'string',
+				example: 'Todo'
+			},
+			tasks: taskSchema
+		}
+	}
+}
+
 const singleBoardSchema = {
 	type: 'object',
 	properties: {
@@ -5,53 +55,7 @@ const singleBoardSchema = {
 			type: 'string',
 			example: 'Default board'
 		},
-		columns: {
-			type: 'array',
-			items: {
-				type: 'object',
-				properties: {
-					name: {
-						type: 'string',
-						example: 'Todo'
-					},
-					tasks: {
-						type: 'array',
-						items: {
-							type: 'object',
-							properties: {
-								title: {
-									type: 'string',
-									example: 'Build UI for onboarding flow'
-								},
-								description: {
-									type: 'string'
-								},
-								status: {
-									type: 'string',
-									status: 'Todo'
-								},
-								subtasks: {
-									type: 'array',
-									items: {
-										type: 'object',
-										properties: {
-											title: {
-												type: 'string',
-												example: 'Sign up page'
-											},
-											isCompleted: {
-												type: 'boolean',
-												example: false
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
+		columns: columnSchema
 	}
 }
 
@@ -65,5 +69,5 @@ const boardsByUserSchema = {
 	}
 }
 
-module.exports = { boardsByUserSchema, singleBoardSchema }
+module.exports = { boardsByUserSchema, singleBoardSchema, columnSchema, taskSchema }
 

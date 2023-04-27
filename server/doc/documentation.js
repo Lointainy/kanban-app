@@ -1,5 +1,5 @@
 const userSchema = require('./schema/userSchema.doc')
-const { boardsByUserSchema, singleBoardSchema } = require('./schema/boardSchema.doc')
+const { boardsByUserSchema, singleBoardSchema, columnSchema, taskSchema } = require('./schema/boardSchema.doc')
 
 const userRouteDoc = require('./routes/userRoutes.doc')
 const boardRouteDoc = require('./routes/boardRoutes.doc')
@@ -55,9 +55,11 @@ const swaggerDoc = {
 	},
 	components: {
 		schemas: {
+			User: userSchema,
 			Boards: boardsByUserSchema,
 			Board: singleBoardSchema,
-			User: userSchema
+			Column: columnSchema,
+			Task: taskSchema
 		},
 		securitySchemes: {
 			bearerAuth: {

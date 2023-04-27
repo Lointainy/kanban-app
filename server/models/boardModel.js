@@ -4,7 +4,8 @@ const Schema = mongoose.Schema
 
 const subtaskSchema = new Schema({
 	title: {
-		type: String
+		type: String,
+		required: true
 	},
 	isCompleted: {
 		type: Boolean
@@ -13,7 +14,8 @@ const subtaskSchema = new Schema({
 
 const taskSchema = new Schema({
 	title: {
-		type: String
+		type: String,
+		required: true
 	},
 	description: {
 		type: String
@@ -26,7 +28,8 @@ const taskSchema = new Schema({
 
 const columnSchema = new Schema({
 	name: {
-		type: String
+		type: String,
+		required: true
 	},
 	tasks: [taskSchema]
 })
@@ -35,7 +38,8 @@ const boardSchema = new Schema({
 	boards: [
 		{
 			name: {
-				type: String
+				type: String,
+				required: true
 			},
 			columns: [columnSchema]
 		}
