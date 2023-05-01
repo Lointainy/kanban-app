@@ -11,7 +11,7 @@ import style from './Task.module.scss'
 /* Utils */
 import { useEffect } from 'react'
 
-const Task: React.FC = ({ task, columnId, taskIndex, onOpen }) => {
+const Task: React.FC = ({ task, onOpen }) => {
   const dispatch = useAppDispatch()
   // Counting completed tasks and their total number
   const { completed, total, setSubtasks } = useCalculateCompleted()
@@ -20,24 +20,13 @@ const Task: React.FC = ({ task, columnId, taskIndex, onOpen }) => {
     setSubtasks(task.subtasks)
   }, [task])
 
-  const onDragStart = (e, taskId) => {
-    e.dataTransfer.setData('taskId', taskId)
-    e.dataTransfer.setData('parentColumnId', columnId)
-    e.dataTransfer.setData('taskIndex', taskIndex)
-  }
-
   const handleOpenTask = () => {
     onOpen(task)
     dispatch(openModal({ name: 'ViewTask', data: task }))
   }
 
   return (
-    <div
-      draggable
-      onDragStart={(e) => onDragStart(e, task._id)}
-      onClick={handleOpenTask}
-      id={task._id}
-      className={style.task}>
+    <div draggable onClick={handleOpenTask} id={task._id} className={style.task}>
       <h3 className={style.title}>{task.title}</h3>
       <span className={style.subtitle}>{`${completed} of ${total} subtasks`}</span>
     </div>

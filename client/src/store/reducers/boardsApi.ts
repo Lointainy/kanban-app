@@ -50,6 +50,7 @@ export const boardsApi = createApi({
         method: 'PATCH',
         body: board,
       }),
+      invalidatesTags: ['Board'],
     }),
 
     // Column
