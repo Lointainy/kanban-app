@@ -10,7 +10,7 @@ import { useAddTaskMutation, useDeleteColumnMutation } from '@store/reducers/boa
 import style from './Column.module.scss'
 
 /* Components */
-import { CreateItemForm, Task } from '@components/Board'
+import { CreateItemDropdown, CreateItemForm, Task } from '@components/Board'
 import { DropdownOptions } from '@components'
 import { Draggable } from 'react-beautiful-dnd'
 
@@ -49,6 +49,7 @@ const Column: React.FC = ({ column }) => {
     <div className={style.column}>
       <div className={style.head}>
         <span className={style.name}>{column.name}</span>
+        <CreateItemForm title={'task'} createItem={handleCreate} dropdown buttons />
         <DropdownOptions options={options} fieldStyle={'invert'} buttonStyle={'invert'} />
       </div>
 
@@ -64,9 +65,6 @@ const Column: React.FC = ({ column }) => {
             </Draggable>
           )
         })}
-      </div>
-      <div className={style.add}>
-        <CreateItemForm title={'task'} createItem={handleCreate} />
       </div>
     </div>
   )

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 /* Hooks */
 import { useToggle } from '@hooks/useToggle'
@@ -15,11 +15,12 @@ import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 type Props = {
   title: string
   buttons?: boolean
+  dropdown?: boolean
   createItem: (value: string) => void
 }
 
 export default function CreateItemForm(props: Props) {
-  const { title, createItem, buttons } = props
+  const { title, createItem, buttons, dropdown } = props
 
   const formRef = useRef<HTMLFormElement>(null)
 
@@ -33,9 +34,11 @@ export default function CreateItemForm(props: Props) {
 
   function handleCreate(e) {
     e.preventDefault()
-    setToggle(false)
-    createItem(value)
-    setValue('')
+    if (value.length > 2) {
+      setToggle(false)
+      createItem(value)
+      setValue('')
+    }
   }
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
@@ -56,8 +59,32 @@ export default function CreateItemForm(props: Props) {
     setValue('')
   }
 
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (formRef.current && !formRef.current.contains(event.target as Node)) {
+        setToggle(false)
+      }
+    }
+    document.addEventListener('mousedown', handleOutsideClick)
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick)
+    }
+  }, [])
+
   return (
-    <form className={`${style.create}`} onClick={handleOpen} onSubmit={handleCreate} ref={formRef}>
+    <form
+      className={`${style.create} ${dropdown ? style.dropdown : ''}`}
+      onClick={handleOpen}
+      onSubmit={handleCreate}
+      ref={formRef}>
+      {!toggle && !dropdown && (
+        <button className={`${style.btn}`}>
+          <Icon icon="plus" />
+          <span>{`Create New ${title}`}</span>
+        </button>
+      )}
+      {dropdown && <button className={`${style.btn}`}>{toggle ? <Icon icon="minus" /> : <Icon icon="plus" />}</button>}
       {toggle && (
         <div className={`${style.create__field} ${buttons && style.full}`} onClick={(e) => e.stopPropagation()}>
           <Input
@@ -82,12 +109,6 @@ export default function CreateItemForm(props: Props) {
             </>
           )}
         </div>
-      )}
-      {!toggle && (
-        <button className={`${style.btn}`}>
-          <Icon icon="plus" />
-          <span>{`Create New ${title}`}</span>
-        </button>
       )}
     </form>
   )
