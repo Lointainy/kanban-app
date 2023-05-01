@@ -56,3 +56,16 @@
 .btn__cancel {
   border-radius: calc($border-radius / 2);
 }
+
+.create.dropdown {
+  position: relative;
+  min-height: 24px;
+
+  .create__field {
+    position: absolute;
+    top: 3rem;
+    right: -2rem;
+    width: 15.5rem;
+    background: color(fieldBg);
+  }
+}
