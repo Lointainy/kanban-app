@@ -27,9 +27,21 @@ import {
   faChevronDown,
   faRightLeft,
   faMinus,
+  faEyeSlash,
 } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faEllipsisVertical, faPlus, faLayerGroup, faSun, faMoon, faCheck, faChevronDown, faRightLeft, faMinus)
+library.add(
+  faEllipsisVertical,
+  faPlus,
+  faLayerGroup,
+  faSun,
+  faMoon,
+  faCheck,
+  faChevronDown,
+  faRightLeft,
+  faMinus,
+  faEyeSlash
+)
 
 /* Styles */
 import '@styles/main.scss'
