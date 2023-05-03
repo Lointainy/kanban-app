@@ -2,8 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   colorTheme: 'light',
-  nav: false,
-  sidebar: false,
+  sidebar: true,
 }
 
 export const uiSlice = createSlice({
@@ -13,9 +12,12 @@ export const uiSlice = createSlice({
     setTheme: (state, action) => {
       state.colorTheme = action.payload
     },
+    toggleSidebar: (state) => {
+      state.sidebar = !state.sidebar
+    },
   },
 })
 
-export const { setTheme } = uiSlice.actions
+export const { setTheme, toggleSidebar } = uiSlice.actions
 
 export default uiSlice.reducer
