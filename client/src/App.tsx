@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 
 /* Router */
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 
 /* Store */
 import { useAppDispatch, useAppSelector } from '@hooks/useRedux'
@@ -11,15 +11,17 @@ import { useGetBoardsQuery } from '@store/reducers/boardsApi'
 
 /* Hooks */
 import useTheme from '@hooks/useTheme'
-
-/* Pages */
-import { BoardPage, HomePage, NotFoundPage, SignUpPage, LoginPage } from '@pages'
-import { Header, Sidebar } from '@/layout'
-import { Modals } from '@components'
+import authWrapper from './hooks/authWrapper'
 
 /* Styles */
 import style from './App.module.scss'
-import authWrapper from './hooks/authWrapper'
+
+/* Pages */
+import { BoardPage, HomePage, NotFoundPage, SignUpPage, LoginPage } from '@pages'
+
+/* Components */
+import { Header, Sidebar } from '@/layout'
+import { Modals, ToggleSidebar } from '@components'
 
 export const App: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -34,7 +36,7 @@ export const App: React.FC = () => {
   const userLogined = useAppSelector((store) => store.auth.login) // loginned
 
   // Status theme
-  const theme = useAppSelector((store) => store.ui.colorTheme)
+  const { colorTheme: theme, sidebar } = useAppSelector((store) => store.ui)
 
   useEffect(() => {
     // Set theme name to store
@@ -58,10 +60,10 @@ export const App: React.FC = () => {
 
   if (userLogined && !pathname.includes('/login')) {
     return (
-      <div className={`${style.app} ${theme}`}>
+      <div className={`${style.app} ${theme} ${!sidebar ? style.sidebar : ''}`}>
         {modalOpen && <Modals />}
         <Header />
-        <Sidebar boards={boards} />
+        {sidebar ? <Sidebar boards={boards} /> : <ToggleSidebar />}
         <div className={style.content}>
           <Routes>
             <Route index element={<HomePage />} />

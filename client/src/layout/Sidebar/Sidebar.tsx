@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 
 /* Store */
+import { useAppDispatch, useAppSelector } from '@/hooks/useRedux'
 import { useAddBoardMutation } from '@store/reducers/boardsApi'
+import { toggleSidebar } from '@/store/reducers/uiSlice'
 
 /* Routes */
 import { NavLink } from 'react-router-dom'
@@ -15,9 +17,9 @@ import { CreateItemForm } from '@components/Board'
 
 /* Icons */
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
-import { useAppSelector } from '@/hooks/useRedux'
 
 const Sidebar: React.FC = ({ boards }) => {
+  const dispatch = useAppDispatch()
   const { _id: boardId } = useAppSelector((store) => store.boards.activeBoard)
 
   const [activeId, setActiveId] = useState('')
@@ -73,6 +75,10 @@ const Sidebar: React.FC = ({ boards }) => {
         <CreateItemForm title={'board'} buttons={true} createItem={handleCreateBoard} />
       </div>
       <ThemeSwitcher />
+      <div className={style.hidebar}>
+        <Icon icon="eye-slash" />
+        <span onClick={() => dispatch(toggleSidebar())}>hide bar</span>
+      </div>
     </div>
   )
 }
