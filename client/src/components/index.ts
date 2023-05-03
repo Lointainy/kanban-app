@@ -1,5 +1,6 @@
 export { default as Modals } from './Modals/index'
 export { default as ThemeSwitcher } from './ThemeSwitcher/ThemeSwitcher'
+export { default as ToggleSidebar } from './ToggleSidebar/ToggleSidebar'
 
 /* Standard */
 export { default as Input } from './Standard/Input/Input'

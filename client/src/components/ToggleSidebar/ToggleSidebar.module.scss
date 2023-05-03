@@ -1,0 +1,9 @@
+@import '@styles/main';
+
+.bar {
+  @include btn-primary-l;
+  position: absolute;
+  bottom: 15px;
+  width: 3rem;
+  border-radius: 0 1.5rem 1.5rem 0;
+}
