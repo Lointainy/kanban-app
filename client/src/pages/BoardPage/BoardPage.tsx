@@ -114,8 +114,12 @@ const BoardPage: React.FC = () => {
             board?.columns?.map((column) => {
               return (
                 <Droppable key={column._id} droppableId={column._id}>
-                  {(provided) => (
-                    <div {...provided.droppableProps} ref={provided.innerRef}>
+                  {(provided, snapshot) => (
+                    <div
+                      {...provided.droppableProps}
+                      ref={provided.innerRef}
+                      className={snapshot.isDraggingOver ? style.drop : ''}
+                      {...provided.droppableProps}>
                       <Column column={column} key={column._id} />
                       {provided.placeholder}
                     </div>

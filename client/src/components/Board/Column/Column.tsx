@@ -49,7 +49,7 @@ const Column: React.FC = ({ column }) => {
     <div className={style.column}>
       <div className={style.head}>
         <span className={style.name}>{column.name}</span>
-        <CreateItemForm title={'task'} createItem={handleCreate} dropdown buttons />
+        <CreateItemForm title={'task'} createItem={handleCreate} dropdown />
         <DropdownOptions options={options} fieldStyle={'invert'} buttonStyle={'invert'} />
       </div>
 
@@ -57,8 +57,12 @@ const Column: React.FC = ({ column }) => {
         {column?.tasks.map((task, index) => {
           return (
             <Draggable key={task._id} draggableId={task._id} index={index}>
-              {(provided) => (
-                <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+              {(provided, snapshot) => (
+                <div
+                  ref={provided.innerRef}
+                  {...provided.draggableProps}
+                  {...provided.dragHandleProps}
+                  className={snapshot.isDragging ? style.drag : ''}>
                   <Task task={task} key={task._id} columnId={column._id} taskIndex={index} onOpen={setActive} />
                 </div>
               )}

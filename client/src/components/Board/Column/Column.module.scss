@@ -27,3 +27,8 @@
   grid-auto-flow: row;
   row-gap: 1.25rem;
 }
+
+.drag {
+  border-radius: $border-radius;
+  outline: 2px solid $color-main-purple;
+}
