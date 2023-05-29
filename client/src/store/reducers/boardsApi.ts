@@ -86,10 +86,20 @@ export const boardsApi = createApi({
       }),
       invalidatesTags: ['Board'],
     }),
+    // Subtask
+    addSubtask: builder.mutation({
+      query: ({ boardId, columnId, taskId, subtask }) => ({
+        url: `/subtasks?boardId=${boardId}&columnId=${columnId}&taskId=${taskId}`,
+        method: 'POST',
+        body: subtask,
+      }),
+      invalidatesTags: ['Board'],
+    }),
   }),
 })
 
 export const {
+  // Board
   useGetBoardsQuery,
   useGetSingleBoardQuery,
   useAddBoardMutation,
@@ -98,7 +108,9 @@ export const {
   // Column
   useAddColumnMutation,
   useDeleteColumnMutation,
-  // Taks
+  // Tasks
   useAddTaskMutation,
   useDeleteTaskMutation,
+  // Subtasks
+  useAddSubtaskMutation,
 } = boardsApi
