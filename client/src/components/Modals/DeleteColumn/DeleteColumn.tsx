@@ -17,7 +17,6 @@ const DeleteColumn: React.FC = ({ id, name }) => {
   const [deleteColumn] = useDeleteColumnMutation()
 
   const handleDeleteColumn = () => {
-    console.log(id)
     deleteColumn({ boardId: id.board, columnId: id.column })
     dispatch(closeModal())
   }
