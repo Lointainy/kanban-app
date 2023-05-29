@@ -89,6 +89,7 @@ export default function CreateItemForm(props: Props) {
         <div className={`${style.create__field} ${buttons && style.full}`} onClick={(e) => e.stopPropagation()}>
           <div className={style.input__area}>
             <Input
+              autoFocus={true}
               name={'create'}
               placeholder={`Enter ${title} name`}
               required={true}
