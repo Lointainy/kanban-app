@@ -51,46 +51,48 @@ export default function SignUpPage() {
 
   return (
     <div className={style.signup}>
-      <div className={style.header}>
-        <h1 className={style.title}>SignUp user</h1>
-        <NavLink to={'/login'} className={style.link}>
-          login
-        </NavLink>
+      <div className={style.field}>
+        <div className={style.header}>
+          <h1 className={style.title}>SignUp user</h1>
+          <NavLink to={'/login'} className={style.link}>
+            login
+          </NavLink>
+        </div>
+
+        <form onSubmit={handleSubmit} className={style.form}>
+          <Input
+            name={'email'}
+            placeholder={'Enter the email'}
+            errorMessage={'Wrong format'}
+            required={true}
+            pattern={patternEmail}
+            label={'Email'}
+            value={form.email}
+            onChange={handleChange}
+            tooltip={'Example name@gmail.com'}
+          />
+
+          <Input
+            name={'password'}
+            placeholder={'Enter the password'}
+            errorMessage={'Password is not have correct format'}
+            required={true}
+            pattern={patternPassword}
+            label={'Password'}
+            value={form.password}
+            onChange={handleChange}
+            tooltip={'8 - 16, example length Asd/12sd'}
+          />
+
+          {loginError && <span className={style.error}>User is not found or Password in not correct</span>}
+
+          <CheckBox title={'Remember me'} checked={form.rememberUser} onChange={handleChecked} />
+
+          <button type="submit" className={`${style.btn}`} name="login">
+            signup
+          </button>
+        </form>
       </div>
-
-      <form onSubmit={handleSubmit} className={style.form}>
-        <Input
-          name={'email'}
-          placeholder={'Enter the email'}
-          errorMessage={'Wrong format'}
-          required={true}
-          pattern={patternEmail}
-          label={'Email'}
-          value={form.email}
-          onChange={handleChange}
-          tooltip={'Example name@gmail.com'}
-        />
-
-        <Input
-          name={'password'}
-          placeholder={'Enter the password'}
-          errorMessage={'Password is not have correct format'}
-          required={true}
-          pattern={patternPassword}
-          label={'Password'}
-          value={form.password}
-          onChange={handleChange}
-          tooltip={'8 - 16, example length Asd/12sd'}
-        />
-
-        {loginError && <span className={style.error}>User is not found or Password in not correct</span>}
-
-        <CheckBox title={'Remember me'} checked={form.rememberUser} onChange={handleChecked} />
-
-        <button type="submit" className={`${style.btn}`} name="login">
-          signup
-        </button>
-      </form>
     </div>
   )
 }
