@@ -1,11 +1,13 @@
 @import '@styles/main';
 
 .sidebar {
-  grid-area: sidebar;
+  grid-column: 1;
+  grid-row: 2;
+  background: color(fieldBg);
+  overflow-y: scroll;
   display: grid;
   grid-auto-flow: row;
   grid-template-rows: 1fr 3rem max-content;
-  background: color(fieldBg);
   border-right: 1px solid color(lineBg);
   padding: 0 2rem 2rem 2rem;
   row-gap: 1.5rem;

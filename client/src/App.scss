@@ -1,0 +1,35 @@
+@import '@styles/main';
+
+.App {
+  height: 100vh;
+  background: color(bg);
+}
+
+.grid {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-template-rows: 80px 1fr;
+}
+
+.page-content {
+  grid-row: 2;
+  grid-column: 2;
+  overflow-y: scroll;
+  padding: 2rem;
+}
+
+.page-content.fullsize {
+  grid-column: span 2;
+}
+
+/* Media */
+
+@include media(md, mx) {
+  .grid {
+    grid-template-rows: max-content 1fr;
+    grid-template-columns: 1fr;
+  }
+}

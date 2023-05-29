@@ -1,7 +1,8 @@
 @import '@styles/main';
 
 .header {
-  grid-area: header;
+  grid-column: span 2;
+  grid-row: 1;
   display: grid;
   grid-auto-flow: column;
   grid-template-columns: 16.75rem 1fr minmax(160px, max-content) max-content;

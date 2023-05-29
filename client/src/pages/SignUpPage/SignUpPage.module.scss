@@ -40,3 +40,9 @@
   @include btn-primary-l;
   border-radius: 0;
 }
+
+@include media(sm, mx) {
+  .field {
+    width: auto;
+  }
+}

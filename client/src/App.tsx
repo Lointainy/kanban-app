@@ -5,19 +5,19 @@ import { Route, Routes, useLocation } from 'react-router-dom'
 
 /* Store */
 import { useAppDispatch, useAppSelector } from '@hooks/useRedux'
-import { setTheme } from '@store/reducers/uiSlice'
 import { setActiveBoard } from '@store/reducers/boardSlice'
 import { useGetBoardsQuery } from '@store/reducers/boardsApi'
+import { setTheme } from '@store/reducers/uiSlice'
 
 /* Hooks */
 import useTheme from '@hooks/useTheme'
 import authWrapper from './hooks/authWrapper'
 
 /* Styles */
-import style from './App.module.scss'
+import './App.scss'
 
 /* Pages */
-import { BoardPage, HomePage, NotFoundPage, SignUpPage, LoginPage } from '@pages'
+import { BoardPage, HomePage, LoginPage, NotFoundPage, SignUpPage } from '@pages'
 
 /* Components */
 import { Header, Sidebar } from '@/layout'
@@ -60,30 +60,30 @@ export const App: React.FC = () => {
 
   if (userLogined && !pathname.includes('/login')) {
     return (
-      <div className={`${style.app} ${theme} ${!sidebar ? style.sidebar : ''}`}>
-        {modalOpen && <Modals />}
-        <Header />
-        {sidebar ? <Sidebar boards={boards} /> : <ToggleSidebar />}
-        <div className={style.content}>
-          <Routes>
-            <Route index element={<HomePage />} />
-            <Route path={'board/:boardId'} element={<BoardPage />} />
-            <Route path={'*'} element={<NotFoundPage />} />
-          </Routes>
+      <div className={`App ${theme}`}>
+        <div className="grid">
+          {modalOpen && <Modals />}
+          <Header />
+          {sidebar ? <Sidebar boards={boards} /> : <ToggleSidebar />}
+          <div className={`page-content ${!sidebar ? 'fullsize' : ''}`}>
+            <Routes>
+              <Route index element={<HomePage />} />
+              <Route path={'board/:boardId'} element={<BoardPage />} />
+              <Route path={'*'} element={<NotFoundPage />} />
+            </Routes>
+          </div>
         </div>
       </div>
     )
   }
 
   return (
-    <div className={`${style.app} ${theme} ${style.fullscreen}`}>
-      <div className={style.content}>
-        <Routes>
-          <Route path={'/login'} element={<LoginPage />} />
-          <Route path={'/signup'} element={<SignUpPage />} />
-          <Route path={'*'} element={<NotFoundPage />} />
-        </Routes>
-      </div>
+    <div className={`App ${theme}`}>
+      <Routes>
+        <Route path={'/login'} element={<LoginPage />} />
+        <Route path={'/signup'} element={<SignUpPage />} />
+        <Route path={'*'} element={<NotFoundPage />} />
+      </Routes>
     </div>
   )
 }
