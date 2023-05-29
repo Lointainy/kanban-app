@@ -87,18 +87,20 @@ export default function CreateItemForm(props: Props) {
       {dropdown && <button className={`${style.btn}`}>{toggle ? <Icon icon="minus" /> : <Icon icon="plus" />}</button>}
       {toggle && (
         <div className={`${style.create__field} ${buttons && style.full}`} onClick={(e) => e.stopPropagation()}>
-          <Input
-            name={'create'}
-            placeholder={`Enter ${title} name`}
-            required={true}
-            className={'simple'}
-            value={value}
-            pattern={'^[a-zA-Z0-9]+([- ]?[a-zA-Z0-9]+){2,19}$'}
-            onChange={handleChangeValue}
-            onKeyDown={handleKeyDown}
-          />
+          <div className={style.input__area}>
+            <Input
+              name={'create'}
+              placeholder={`Enter ${title} name`}
+              required={true}
+              className={'simple'}
+              value={value}
+              pattern={'^[a-zA-Z0-9]+([- ]?[a-zA-Z0-9]+){2,19}$'}
+              onChange={handleChangeValue}
+              onKeyDown={handleKeyDown}
+            />
+          </div>
           {buttons && (
-            <>
+            <div className={style.buttons}>
               <button className={style.btn__create} type="submit">
                 <Icon icon="plus" />
                 <span>create</span>
@@ -106,7 +108,7 @@ export default function CreateItemForm(props: Props) {
               <button className={style.btn__cancel} onClick={handleClose}>
                 <span>Cancel</span>
               </button>
-            </>
+            </div>
           )}
         </div>
       )}

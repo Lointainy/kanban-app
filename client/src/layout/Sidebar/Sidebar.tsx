@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react'
 
 /* Store */
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux'
-import { useAddBoardMutation } from '@store/reducers/boardsApi'
 import { toggleSidebar } from '@/store/reducers/uiSlice'
+import { useAddBoardMutation } from '@store/reducers/boardsApi'
 
 /* Routes */
 import { NavLink } from 'react-router-dom'
@@ -44,36 +44,34 @@ const Sidebar: React.FC = ({ boards }) => {
 
   return (
     <div className={style.sidebar}>
-      <div className={style.boards}>
-        <span className={style.title}>all boards {`(${boardsLength})`}</span>
-        <ul className={style.links}>
-          {boards.isSuccess &&
-            boards?.data.map((board) => {
-              return (
-                <li
-                  key={board._id}
-                  className={`${style.item} ${activeId == board._id && style.active}`}
-                  onClick={() => handleClickBoard(board)}>
-                  <NavLink to={`board/${board._id}`} className={style.link}>
-                    <Icon icon="layer-group" className={style.icon} />
-                    <span className={style.name}>{board.name}</span>
-                  </NavLink>
-                </li>
-              )
-            })}
-          {boards.isLoading && (
-            <>
-              <li className={`${style.item} ${style.skelet}`}>
-                <div className={style.link}>
-                  <div className={style.icon}></div>
-                  <span className={style.name}></span>
-                </div>
+      <span className={style.title}>all boards {`(${boardsLength})`}</span>
+      <ul className={style.links}>
+        {boards.isSuccess &&
+          boards?.data.map((board) => {
+            return (
+              <li
+                key={board._id}
+                className={`${style.item} ${activeId == board._id && style.active}`}
+                onClick={() => handleClickBoard(board)}>
+                <NavLink to={`board/${board._id}`} className={style.link}>
+                  <Icon icon="layer-group" className={style.icon} />
+                  <span className={style.name}>{board.name}</span>
+                </NavLink>
               </li>
-            </>
-          )}
-        </ul>
-        <CreateItemForm title={'board'} buttons={true} createItem={handleCreateBoard} />
-      </div>
+            )
+          })}
+        {boards.isLoading && (
+          <>
+            <li className={`${style.item} ${style.skelet}`}>
+              <div className={style.link}>
+                <div className={style.icon}></div>
+                <span className={style.name}></span>
+              </div>
+            </li>
+          </>
+        )}
+      </ul>
+      <CreateItemForm title={'board'} buttons={true} createItem={handleCreateBoard} />
       <ThemeSwitcher />
       <div className={style.hidebar}>
         <Icon icon="eye-slash" />

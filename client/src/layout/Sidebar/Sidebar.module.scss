@@ -5,32 +5,25 @@
   grid-row: 2;
   background: color(fieldBg);
   overflow-y: scroll;
-  display: grid;
-  grid-auto-flow: row;
-  grid-template-rows: 1fr 3rem max-content;
   border-right: 1px solid color(lineBg);
-  padding: 0 2rem 2rem 2rem;
-  row-gap: 1.5rem;
-}
-
-.boards {
+  padding: 2rem;
   display: grid;
   grid-auto-flow: row;
-  grid-template-rows: repeat(2, max-content) 3rem;
-  align-items: center;
-  color: color(subTitle);
-  row-gap: 1rem;
+  grid-auto-rows: max-content;
+  row-gap: 2rem;
 }
 
 .title {
+  grid-row: 1;
   @include body-m;
   display: grid;
   align-items: center;
   text-transform: uppercase;
-  margin: 1rem 0 0 0;
+  color: color(subTitle);
 }
 
 .links {
+  grid-row: 2;
   display: grid;
   grid-auto-flow: row;
   grid-auto-rows: 3rem;
@@ -38,6 +31,7 @@
 }
 
 .item {
+  color: color(subTitle);
   @include heading-m;
   height: 100%;
 }
