@@ -49,19 +49,20 @@ const Input: React.FC<Props> = (props) => {
         focused={focus}
         className={style.input}
       />
-
       {label && (
         <h4 className={style.label}>
           {label}
-          {tooltip && (
+          {tooltip ? (
             <div className={style.tooltip}>
               <Icon icon="circle-exclamation" className={style.tooltip__icon} />
               <div className={style.tooltip__span}>{tooltip}</div>
             </div>
+          ) : (
+            ''
           )}
         </h4>
       )}
-      {errorMessage && <span className={style.error}>{errorMessage}</span>}
+      {errorMessage && focused ? <span className={style.error}>{errorMessage}</span> : ''}
     </div>
   )
 }
