@@ -14,18 +14,16 @@ import style from './LoginPage.module.scss'
 /* Components */
 import { CheckBox, Input } from '@components'
 
-const defaultForm = {
-  email: '',
-  password: '',
-  rememberUser: false,
-}
+/* Utils */
+import { defaultFormData } from '@/utils/form'
+import { patternEmail, patternPassword } from '@/utils/patterns'
 
 export default function LoginPage() {
   const dispatch = useAppDispatch()
 
   /* Form logic */
 
-  const [form, setForm] = useState(defaultForm)
+  const [form, setForm] = useState(defaultFormData)
 
   const [login, { isError: loginError }] = useLoginMutation()
 
@@ -47,7 +45,7 @@ export default function LoginPage() {
       const { data } = await login(form)
       dispatch(setToken({ token: data.token, rememberUser: form.rememberUser }))
     } catch (error) {
-      setForm(defaultForm)
+      setForm(defaultFormData)
     }
   }
 
@@ -66,10 +64,11 @@ export default function LoginPage() {
           placeholder={'Enter the email'}
           errorMessage={'Wrong format'}
           required={true}
-          pattern={'^([A-Z|a-z|0-9](.|_){0,1})+[A-Z|a-z|0-9]@([A-Z|a-z|0-9])+((.){0,1}[A-Z|a-z|0-9]){2}.[a-z]{2,3}$'}
+          pattern={patternEmail}
           label={'Email'}
           value={form.email}
           onChange={handleChange}
+          tooltip={'Example name@gmail.com'}
         />
 
         <Input
@@ -77,17 +76,18 @@ export default function LoginPage() {
           placeholder={'Enter the password'}
           errorMessage={'Password is not have correct format'}
           required={true}
-          pattern={'^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[^da-zA-Z]).{8,}$'}
+          pattern={patternPassword}
           label={'Password'}
           value={form.password}
           onChange={handleChange}
+          tooltip={'8 - 16, example length Asd/12sd'}
         />
 
         {loginError && <span className={style.error}>User is not found or Password in not correct</span>}
 
         <CheckBox title={'Remember me'} checked={form.rememberUser} onChange={handleChecked} />
 
-        <button type="submit" className={`${style.btn}`}>
+        <button type="submit" className={`${style.btn}`} name="login">
           login
         </button>
       </form>
