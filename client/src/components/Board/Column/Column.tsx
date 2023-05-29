@@ -4,14 +4,15 @@ import { useParams } from 'react-router-dom'
 /* Store */
 import { useAppDispatch } from '@hooks/useRedux'
 import { setActiveColumn, setActiveTask } from '@store/reducers/boardSlice'
-import { useAddTaskMutation, useDeleteColumnMutation } from '@store/reducers/boardsApi'
+import { useAddTaskMutation } from '@store/reducers/boardsApi'
 
 /* Styles */
 import style from './Column.module.scss'
 
 /* Components */
-import { CreateItemDropdown, CreateItemForm, Task } from '@components/Board'
+import { openModal } from '@/store/reducers/modalSlice'
 import { DropdownOptions } from '@components'
+import { CreateItemForm, Task } from '@components/Board'
 import { Draggable } from 'react-beautiful-dnd'
 
 const Column: React.FC = ({ column }) => {
@@ -26,8 +27,6 @@ const Column: React.FC = ({ column }) => {
     { label: 'Delete column', error: true, onClick: handleDeleteColumn },
   ]
 
-  const [deleteColumn] = useDeleteColumnMutation()
-
   const handleCreate = (value: string) => {
     addTask({ boardId: boardId, columnId: column._id, task: { title: value } })
   }
@@ -38,7 +37,8 @@ const Column: React.FC = ({ column }) => {
   }
 
   function handleDeleteColumn() {
-    deleteColumn({ boardId: boardId, columnId: column._id })
+    dispatch(openModal({ name: 'DeleteColumn' }))
+    dispatch(setActiveColumn(column))
   }
 
   function handleEditColumn() {
