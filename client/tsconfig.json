@@ -10,11 +10,10 @@
       "@types/*": ["./src/types/*"],
       "@types": ["./src/types/*"],
       "@styles": ["./src/assets/styles"],
-      "@img/*": ["./src/assets/img/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@store/*": ["./src/store/*"],
-      "@router/*": ["./src/router/*"],
-      "@public": ["./public/*"]
+      "@public": ["./public/*"],
+      "@utils/*": ["./src/utils/*"]
     },
     "types": ["node"],
     "target": "ESNext",
