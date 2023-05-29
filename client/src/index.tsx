@@ -7,8 +7,8 @@ import App from './App'
 import { BrowserRouter as Router } from 'react-router-dom'
 
 /* Store */
-import { Provider } from 'react-redux'
 import { store } from '@store/store'
+import { Provider } from 'react-redux'
 
 /* Fonts */
 import '@fontsource/plus-jakarta-sans'
@@ -18,17 +18,18 @@ import '@fontsource/plus-jakarta-sans/700.css'
 /* ICONS */
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
-  faEllipsisVertical,
-  faPlus,
-  faLayerGroup,
-  faSun,
-  faMoon,
+  faBars,
   faCheck,
   faChevronDown,
-  faRightLeft,
-  faMinus,
+  faCircleExclamation,
+  faEllipsisVertical,
   faEyeSlash,
-  faBars,
+  faLayerGroup,
+  faMinus,
+  faMoon,
+  faPlus,
+  faRightLeft,
+  faSun,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -42,7 +43,8 @@ library.add(
   faChevronDown,
   faRightLeft,
   faMinus,
-  faEyeSlash
+  faEyeSlash,
+  faCircleExclamation
 )
 
 /* Styles */
