@@ -1,6 +1,3 @@
-/* Routes */
-import { useNavigate } from 'react-router-dom'
-
 /* Store */
 import { useAppDispatch } from '@hooks/useRedux'
 import { useDeleteColumnMutation } from '@store/reducers/boardsApi'
@@ -11,8 +8,6 @@ import style from './DeleteColumn.module.scss'
 
 const DeleteColumn: React.FC = ({ id, name }) => {
   const dispatch = useAppDispatch()
-
-  const navigate = useNavigate()
 
   const [deleteColumn] = useDeleteColumnMutation()
 
