@@ -10,6 +10,7 @@ import style from './Task.module.scss'
 
 /* Utils */
 import { useEffect } from 'react'
+import { setActiveTask } from '@/store/reducers/boardSlice'
 
 const Task: React.FC = ({ task, onOpen }) => {
   const dispatch = useAppDispatch()
@@ -24,6 +25,10 @@ const Task: React.FC = ({ task, onOpen }) => {
     onOpen(task)
     dispatch(openModal({ name: 'ViewTask', data: task }))
   }
+
+  useEffect(() => {
+    dispatch(setActiveTask(task))
+  }, [task])
 
   return (
     <div draggable onClick={handleOpenTask} id={task._id} className={style.task}>
