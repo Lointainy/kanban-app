@@ -3,15 +3,16 @@ import { useAppDispatch, useAppSelector } from '@hooks/useRedux'
 import { closeModal } from '@store/reducers/modalSlice'
 
 /* Modals */
-import ViewTask from './ViewTask/ViewTask'
-import EditTask from './EditTask/EditTask'
-import AddNewTask from './AddNewTask/AddNewTask'
 import AddNewBoard from './AddNewBoard/AddNewBoard'
+import AddNewTask from './AddNewTask/AddNewTask'
+import DeleteBoard from './DeleteBoard/DeleteBoard'
 import DeleteTask from './DeleteTask/DeleteTask'
 import EditBoard from './EditBoard/EditBoard'
-import DeleteBoard from './DeleteBoard/DeleteBoard'
+import EditTask from './EditTask/EditTask'
+import ViewTask from './ViewTask/ViewTask'
 
 /* Styles */
+import DeleteColumn from './DeleteColumn/DeleteColumn'
 import style from './index.module.scss'
 
 const Modals: React.FC = () => {
@@ -44,6 +45,7 @@ const Modals: React.FC = () => {
             {modal.name == 'AddNewBoard' && <AddNewBoard />}
             {modal.name == 'EditBoard' && <EditBoard board={modal.data} />}
             {modal.name == 'DeleteBoard' && <DeleteBoard id={board._id} name={board.name} />}
+            {modal.name == 'DeleteColumn' && <DeleteColumn id={activeId} name={column.name} />}
           </div>
         </div>
       )}
