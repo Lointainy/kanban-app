@@ -1,0 +1,54 @@
+@import '@styles/main';
+
+.select {
+  width: 100%;
+  position: relative;
+}
+
+.current {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: $border-radius;
+  border: 1px solid color(lineBg);
+  padding: 0 0.75rem;
+  color: color(title);
+  height: 2.875rem;
+
+  &:hover {
+    cursor: pointer;
+    border: 1px solid $color-main-purple;
+    transition: $animate;
+  }
+}
+
+.dropdown {
+  position: absolute;
+  top: 3.5rem;
+  left: 0;
+  display: grid;
+  grid-auto-flow: row;
+  width: 100%;
+  background: color(fieldBg);
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  max-height: 8rem;
+  overflow-y: scroll;
+}
+
+.list {
+  padding: 16px;
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 1rem;
+}
+
+.item {
+  color: color(subTitle);
+
+  &:hover {
+    opacity: 0.6;
+    cursor: pointer;
+  }
+}
