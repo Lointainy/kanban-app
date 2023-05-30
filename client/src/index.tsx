@@ -21,6 +21,7 @@ import {
   faBars,
   faCheck,
   faChevronDown,
+  faChevronUp,
   faCircleExclamation,
   faEllipsisVertical,
   faEyeSlash,
@@ -30,6 +31,7 @@ import {
   faPlus,
   faRightLeft,
   faSun,
+  faTrash,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -40,11 +42,13 @@ library.add(
   faSun,
   faMoon,
   faCheck,
+  faChevronUp,
   faChevronDown,
   faRightLeft,
   faMinus,
   faEyeSlash,
-  faCircleExclamation
+  faCircleExclamation,
+  faTrash
 )
 
 /* Styles */
