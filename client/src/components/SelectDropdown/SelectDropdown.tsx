@@ -10,7 +10,7 @@ interface Props {
   selected: string
   list: string[]
   label: string
-  handleChange: (value: string) => void
+  handleChange: (index: number) => void
 }
 
 export default function SelectDropdown(props: Props) {
@@ -19,10 +19,10 @@ export default function SelectDropdown(props: Props) {
 
   const { toggle: dropdown, handleToggle: toggleDropdown, setToggle } = useToggle(false)
 
-  const handleChangeSelected = (value: string) => {
+  const handleChangeSelected = (value: string, index: number) => {
     setCurrent(value)
     setToggle(false)
-    handleChange(value)
+    handleChange(index)
   }
 
   return (
@@ -41,7 +41,7 @@ export default function SelectDropdown(props: Props) {
           <ul className={style.list}>
             {list.map((item, index) => {
               return (
-                <li key={index} className={style.item} onClick={() => handleChangeSelected(item)}>
+                <li key={index} className={style.item} onClick={() => handleChangeSelected(item, index)}>
                   {item}
                 </li>
               )
