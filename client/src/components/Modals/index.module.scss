@@ -21,4 +21,6 @@
   transform: translate(-50%, -50%);
   width: 540px;
   border-radius: $border-radius;
+  overflow-y: scroll;
+  max-height: 600px;
 }
