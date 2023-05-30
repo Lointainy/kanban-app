@@ -1,45 +1,36 @@
 import { useEffect, useState } from 'react'
 
 /* Store */
-import { useAddSubtaskMutation } from '@/store/reducers/boardsApi'
 import { useAppDispatch } from '@hooks/useRedux'
+import { useUpdateTaskMutation } from '@store/reducers/boardsApi'
 import { openModal } from '@store/reducers/modalSlice'
 
 /* Hooks */
 import { useCalculateCompleted } from '@hooks/useCalculateCompleted'
-import { useToggle } from '@hooks/useToggle'
 
 /* Styles */
 import style from './ViewTask.module.scss'
 
 /* Components */
 import { CreateItemField } from '@/components/Board'
-import { CheckBox, DropdownOptions } from '@components'
+import { CheckBox, DropdownOptions, SelectDropdown } from '@components'
 
-/* Icons */
-import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
+/* Utils */
+import { defaultStatusData as statusList } from '@utils/default'
 
 const ViewTask: React.FC = (props) => {
   const dispatch = useAppDispatch()
 
-  const id = props.id
+  const { id } = props
 
-  // Get Task from props or set after change
   const [task, setTask] = useState(props.task)
-
-  // Dropdown Toggle
-  const { toggle: statusDropdown, handleToggle: statusDropdownToggle } = useToggle(false)
 
   // Counting completed tasks and their total number
   const { completed, total, setSubtasks } = useCalculateCompleted()
 
-  // Get Task status or set after change
-  const [status, setStatus] = useState(task.status)
+  const [selectedStatus, setSelectedStatus] = useState(props.task.status || statusList[0])
 
-  const [addSubtask] = useAddSubtaskMutation()
-
-  // Status list
-  const statusList = ['Todo', 'Doing', 'Done']
+  const [updateTask] = useUpdateTaskMutation()
 
   // Option list
   const options = [
@@ -64,10 +55,10 @@ const ViewTask: React.FC = (props) => {
   }
 
   // set task after change status
-  const handleChangeTaskStatus = (value) => {
-    setStatus(value)
+  const handleChangeStatus = (index: number) => {
+    const value = statusList[index]
+    setSelectedStatus(value)
     setTask({ ...task, status: value })
-    statusDropdownToggle()
   }
 
   const handleClickOption = (name: string) => {
@@ -82,17 +73,38 @@ const ViewTask: React.FC = (props) => {
   }
 
   const handleCreateSubtasks = (value: string) => {
-    addSubtask({ boardId: id.board, columnId: id.column, taskId: id.task, subtask: { title: value } })
+    const updatedSubtasks = [...task.subtasks]
+    updatedSubtasks.push({ title: value, isCompleted: false })
+    setTask({ ...task, subtasks: updatedSubtasks })
   }
 
+  /* Debounce */
+  const [debouncedUpdatedTask, setDebouncedUpdatedTask] = useState(null)
+
+  // Request to API for update task
+  const updateTaskData = () => {
+    if (debouncedUpdatedTask) {
+      updateTask({ boardId: id.board, columnId: id.column, taskId: id.task, task: debouncedUpdatedTask })
+    }
+  }
+
+  // Update after have changes in task
   useEffect(() => {
     setSubtasks(task.subtasks)
+    setDebouncedUpdatedTask(task)
   }, [task])
 
+  // Update after request
   useEffect(() => {
-    setTask(props.task)
-  }, [props.task])
+    const delay = 500
+    const timeoutId = setTimeout(() => {
+      updateTaskData()
+    }, delay)
 
+    return () => {
+      clearTimeout(timeoutId)
+    }
+  }, [debouncedUpdatedTask])
   return (
     <div className={style.field}>
       <div className={style.wrapper}>
@@ -102,7 +114,6 @@ const ViewTask: React.FC = (props) => {
       <p className={style.desc}>{task?.description ? task.description : 'no description'}</p>
       <span className={style.subtitle}>{`Subtasks (${completed} of ${total})`}</span>
       <div className={style.subtasks}>
-        <CreateItemField title={'subtask'} createItem={handleCreateSubtasks} />
         <ul className={style.subtasks__list}>
           {task.subtasks.map((subtask) => {
             return (
@@ -116,28 +127,10 @@ const ViewTask: React.FC = (props) => {
             )
           })}
         </ul>
+        <CreateItemField title={'subtask'} createItem={handleCreateSubtasks} />
       </div>
-      <span className={style.subtitle}>Current Status</span>
-
-      <div className={style.status}>
-        <div className={style.status__current} onClick={statusDropdownToggle}>
-          <span className={style.status__title}>{status}</span>
-          <Icon icon="chevron-down" className={style.status__icon} />
-        </div>
-        {statusDropdown && (
-          <div className={style.status__dropdown}>
-            <ul className={style.status__dropdown_list}>
-              {statusList.map((item, index) => {
-                return (
-                  <li key={index} className={style.status__dropdown_item} onClick={() => handleChangeTaskStatus(item)}>
-                    {item}
-                  </li>
-                )
-              })}
-            </ul>
-          </div>
-        )}
-      </div>
+      {/* Status select dropdown*/}
+      <SelectDropdown selected={selectedStatus} list={statusList} handleChange={handleChangeStatus} label={'Status'} />
     </div>
   )
 }
