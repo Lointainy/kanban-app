@@ -10,6 +10,11 @@
   color: color(title);
 }
 
+.label {
+  margin: 0;
+  color: color(subTitle);
+}
+
 .btn__add {
   @include btn-primary-l;
 }
