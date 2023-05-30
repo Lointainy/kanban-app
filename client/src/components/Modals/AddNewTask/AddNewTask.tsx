@@ -6,6 +6,9 @@ import style from './AddNewTask.module.scss'
 /* Icons */
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 
+/* Utils */
+import { defaultStatusData } from '@utils/default'
+
 /* Components */
 import { useAddTaskMutation } from '@/store/reducers/boardsApi'
 import { Input, SelectDropdown, TextArea } from '@components'
@@ -13,7 +16,7 @@ import { CreateItemField } from '@components/Board'
 
 const AddNewTask: React.FC = ({ id, columns, closeModal }) => {
   // list for dropdown
-  const statusList = ['Todo', 'Doing', 'Done']
+  const statusList = defaultStatusData
   const columnsList = columns.map((column) => column.name)
 
   /* Selected dropdown value */

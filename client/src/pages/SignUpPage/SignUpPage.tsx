@@ -15,8 +15,8 @@ import style from './SignUpPage.module.scss'
 import { CheckBox, Input } from '@components'
 
 /* Utils */
-import { defaultFormData } from '@/utils/form'
 import { patternEmail, patternPassword } from '@/utils/patterns'
+import { defaultFormData } from '@utils/default'
 
 export default function SignUpPage() {
   const dispatch = useAppDispatch()
