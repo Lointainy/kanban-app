@@ -46,10 +46,10 @@ const ViewTask: React.FC = (props) => {
   ]
 
   // set task after change subtask
-  const onChangeSubtask = (id) => {
+  const onChangeSubtask = (index) => {
     let subtasks = task.subtasks.slice()
-    subtasks = subtasks.map((subtask) =>
-      subtask._id == id ? { ...subtask, isCompleted: !subtask.isCompleted } : subtask
+    subtasks = subtasks.map((subtask, subtaskIndex) =>
+      subtaskIndex == index ? { ...subtask, isCompleted: !subtask.isCompleted } : subtask
     )
     setTask({ ...task, subtasks: subtasks })
   }
@@ -115,14 +115,10 @@ const ViewTask: React.FC = (props) => {
       <span className={style.subtitle}>{`Subtasks (${completed} of ${total})`}</span>
       <div className={style.subtasks}>
         <ul className={style.subtasks__list}>
-          {task.subtasks.map((subtask) => {
+          {task.subtasks.map((subtask, index) => {
             return (
               <li className={style.subtasks__item} key={subtask._id}>
-                <CheckBox
-                  checked={subtask.isCompleted}
-                  onChange={() => onChangeSubtask(subtask._id)}
-                  title={subtask.title}
-                />
+                <CheckBox checked={subtask.isCompleted} onChange={() => onChangeSubtask(index)} title={subtask.title} />
               </li>
             )
           })}
