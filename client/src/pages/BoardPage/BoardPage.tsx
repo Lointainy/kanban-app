@@ -8,11 +8,11 @@ import { useAddColumnMutation, useGetSingleBoardQuery, useUpdateBoardMutation } 
 import style from './BoardPage.module.scss'
 
 /* Components */
-import { Column, CreateItemForm } from '@components/Board'
-import { useEffect, useState } from 'react'
 import { useAppDispatch } from '@/hooks/useRedux'
 import { setActiveBoard } from '@/store/reducers/boardSlice'
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
+import { Column, CreateItemField } from '@components/Board'
+import { useEffect, useState } from 'react'
+import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 
 const BoardPage: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -128,7 +128,7 @@ const BoardPage: React.FC = () => {
               )
             })}
           <div className={style.add}>
-            <CreateItemForm title={'column'} createItem={handleCreate} />
+            <CreateItemField title={'column'} createItem={handleCreate} />
           </div>
         </div>
       </DragDropContext>

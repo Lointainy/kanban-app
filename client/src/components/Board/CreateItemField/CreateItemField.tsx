@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useToggle } from '@hooks/useToggle'
 
 /* Styles */
-import style from './CreateItemForm.module.scss'
+import style from './CreateItemField.module.scss'
 
 /* Components */
 import { Input } from '@components'
@@ -19,7 +19,7 @@ type Props = {
   createItem: (value: string) => void
 }
 
-export default function CreateItemForm(props: Props) {
+export default function CreateItemField(props: Props) {
   const { title, createItem, buttons, dropdown } = props
 
   const formRef = useRef<HTMLFormElement>(null)
@@ -32,8 +32,7 @@ export default function CreateItemForm(props: Props) {
     setValue(e.target.value)
   }
 
-  function handleCreate(e) {
-    e.preventDefault()
+  function handleCreate() {
     if (value.length > 2) {
       setToggle(false)
       createItem(value)
@@ -45,7 +44,7 @@ export default function CreateItemForm(props: Props) {
     if (e.key === 'Enter') {
       e.preventDefault()
       if (formRef.current) {
-        formRef.current.requestSubmit()
+        handleCreate()
       }
     }
   }
@@ -73,11 +72,7 @@ export default function CreateItemForm(props: Props) {
   }, [])
 
   return (
-    <form
-      className={`${style.create} ${dropdown ? style.dropdown : ''}`}
-      onClick={handleOpen}
-      onSubmit={handleCreate}
-      ref={formRef}>
+    <div className={`${style.create} ${dropdown ? style.dropdown : ''}`} onClick={handleOpen} ref={formRef}>
       {!toggle && !dropdown && (
         <button className={`${style.btn}`}>
           <Icon icon="plus" />
@@ -102,7 +97,7 @@ export default function CreateItemForm(props: Props) {
           </div>
           {buttons && (
             <div className={style.buttons}>
-              <button className={style.btn__create} type="submit">
+              <button className={style.btn__create} onClick={handleCreate}>
                 <Icon icon="plus" />
                 <span>create</span>
               </button>
@@ -113,6 +108,6 @@ export default function CreateItemForm(props: Props) {
           )}
         </div>
       )}
-    </form>
+    </div>
   )
 }

@@ -12,7 +12,7 @@ import style from './Column.module.scss'
 /* Components */
 import { openModal } from '@/store/reducers/modalSlice'
 import { DropdownOptions } from '@components'
-import { CreateItemForm, Task } from '@components/Board'
+import { CreateItemField, Task } from '@components/Board'
 import { Draggable } from 'react-beautiful-dnd'
 
 const Column: React.FC = ({ column }) => {
@@ -49,7 +49,7 @@ const Column: React.FC = ({ column }) => {
     <div className={style.column}>
       <div className={style.head}>
         <span className={style.name}>{column.name}</span>
-        <CreateItemForm title={'task'} createItem={handleCreate} dropdown />
+        <CreateItemField title={'task'} createItem={handleCreate} dropdown />
         <DropdownOptions options={options} fieldStyle={'invert'} buttonStyle={'invert'} />
       </div>
 

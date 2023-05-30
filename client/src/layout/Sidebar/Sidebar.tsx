@@ -13,7 +13,7 @@ import style from './Sidebar.module.scss'
 
 /* Components */
 import { ThemeSwitcher } from '@components'
-import { CreateItemForm } from '@components/Board'
+import { CreateItemField } from '@components/Board'
 
 /* Icons */
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
@@ -71,7 +71,7 @@ const Sidebar: React.FC = ({ boards }) => {
           </>
         )}
       </ul>
-      <CreateItemForm title={'board'} buttons={true} createItem={handleCreateBoard} />
+      <CreateItemField title={'board'} buttons={true} createItem={handleCreateBoard} />
       <ThemeSwitcher />
       <div className={style.hidebar}>
         <Icon icon="eye-slash" />

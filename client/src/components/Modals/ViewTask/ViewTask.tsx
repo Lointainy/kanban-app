@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react'
 
 /* Store */
+import { useAddSubtaskMutation } from '@/store/reducers/boardsApi'
 import { useAppDispatch } from '@hooks/useRedux'
 import { openModal } from '@store/reducers/modalSlice'
-import { useAddSubtaskMutation } from '@/store/reducers/boardsApi'
 
 /* Hooks */
-import { useToggle } from '@hooks/useToggle'
 import { useCalculateCompleted } from '@hooks/useCalculateCompleted'
+import { useToggle } from '@hooks/useToggle'
 
 /* Styles */
 import style from './ViewTask.module.scss'
 
 /* Components */
-import { DropdownOptions, CheckBox } from '@components'
-import { CreateItemForm } from '@/components/Board'
+import { CreateItemField } from '@/components/Board'
+import { CheckBox, DropdownOptions } from '@components'
 
 /* Icons */
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
@@ -102,7 +102,7 @@ const ViewTask: React.FC = (props) => {
       <p className={style.desc}>{task?.description ? task.description : 'no description'}</p>
       <span className={style.subtitle}>{`Subtasks (${completed} of ${total})`}</span>
       <div className={style.subtasks}>
-        <CreateItemForm title={'subtask'} createItem={handleCreateSubtasks} />
+        <CreateItemField title={'subtask'} createItem={handleCreateSubtasks} />
         <ul className={style.subtasks__list}>
           {task.subtasks.map((subtask) => {
             return (
