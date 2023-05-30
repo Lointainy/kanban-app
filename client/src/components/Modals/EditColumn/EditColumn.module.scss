@@ -1,0 +1,59 @@
+@import '@styles/main';
+
+.form {
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 1.5rem;
+}
+
+.title {
+  color: color(title);
+}
+
+.label {
+  margin: 0;
+  color: color(subTitle);
+}
+
+.btn__save {
+  @include btn-primary-l;
+}
+
+.tasks {
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 0.75rem;
+}
+
+.list {
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 0.75rem;
+}
+
+.item__icon {
+  display: none;
+  color: color(subTitle);
+
+  &:hover {
+    transition: $animate;
+    cursor: pointer;
+    color: $color-main-purple;
+  }
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 0 1rem;
+
+  &:hover {
+    cursor: pointer;
+
+    .item__icon {
+      display: block;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
