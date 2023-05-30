@@ -109,6 +109,7 @@ const AddNewTask: React.FC = ({ id, columns, closeModal }) => {
       />
 
       <div className={style.subtasks}>
+        <h4 className={style.label}>Columns</h4>
         <ul className={style.list}>
           {task.subtasks.map((subtask, index) => {
             return (
