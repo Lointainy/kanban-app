@@ -31,12 +31,15 @@ const Header: React.FC = () => {
   // Location path
   const { pathname } = useLocation()
 
-  const options = []
+  const defaultOptions = [{ label: 'Add Board', error: false, onClick: () => handleClickOption('AddNewBoard') }]
+
+  const options = [...defaultOptions]
 
   if (pathname.includes('/board/')) {
     options.push(
       {
         label: 'Edit board',
+        error: false,
         onClick: () => handleClickOption('EditBoard'),
       },
       {
@@ -53,6 +56,9 @@ const Header: React.FC = () => {
     switch (name) {
       case 'AddNewTask':
         dispatch(openModal({ name: 'AddNewTask' }))
+        break
+      case 'AddNewBoard':
+        dispatch(openModal({ name: 'AddNewBoard' }))
         break
       case 'EditBoard':
         dispatch(openModal({ name: 'EditBoard' }))
