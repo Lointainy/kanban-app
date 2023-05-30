@@ -1,0 +1,36 @@
+@import '@styles/main';
+
+.field {
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 0.5rem;
+}
+
+.label {
+  margin: 0;
+  color: color(subTitle);
+  text-transform: capitalize;
+}
+
+.area {
+  padding: 0.5rem 1rem;
+  border-radius: $border-radius;
+  color: color(title);
+  border: 1px solid color(lineBg);
+  resize: vertical;
+  min-height: 7rem;
+  max-height: 7rem;
+  overflow-y: scroll;
+
+  &::placeholder {
+    opacity: 0.35;
+  }
+
+  &:placeholder-shown {
+    color: color(title);
+  }
+
+  &:focus {
+    outline: 2px solid $color-main-purple;
+  }
+}
