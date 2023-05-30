@@ -9,3 +9,4 @@ export { default as TextArea } from './Standard/TextArea/TextArea'
 
 /* DropDown */
 export { default as DropdownOptions } from './DropdownOptions/DropdownOptions'
+export { default as SelectDropdown } from './SelectDropdown/SelectDropdown'
