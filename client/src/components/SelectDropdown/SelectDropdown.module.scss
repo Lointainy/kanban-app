@@ -3,6 +3,14 @@
 .select {
   width: 100%;
   position: relative;
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 0.5rem;
+}
+
+.label {
+  margin: 0;
+  color: color(subTitle);
 }
 
 .current {
@@ -25,7 +33,7 @@
 
 .dropdown {
   position: absolute;
-  top: 3.5rem;
+  top: 5rem;
   left: 0;
   display: grid;
   grid-auto-flow: row;
