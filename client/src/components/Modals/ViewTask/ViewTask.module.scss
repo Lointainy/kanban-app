@@ -90,14 +90,14 @@
   grid-auto-flow: row;
   grid-template-rows: max-content 1fr;
   row-gap: 1rem;
-  max-height: 300px;
-  overflow-x: hidden;
 
   &__list {
     display: grid;
     grid-auto-flow: row;
     align-items: center;
     row-gap: 0.5rem;
+    max-height: 140px;
+    overflow-x: hidden;
   }
 
   &__item {
