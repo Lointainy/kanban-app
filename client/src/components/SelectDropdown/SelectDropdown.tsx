@@ -9,11 +9,12 @@ import { useState } from 'react'
 interface Props {
   selected: string
   list: string[]
+  label: string
   handleChange: (value: string) => void
 }
 
 export default function SelectDropdown(props: Props) {
-  const { selected, list, handleChange } = props
+  const { selected, list, handleChange, label } = props
   const [current, setCurrent] = useState(selected)
 
   const { toggle: dropdown, handleToggle: toggleDropdown, setToggle } = useToggle(false)
@@ -26,6 +27,7 @@ export default function SelectDropdown(props: Props) {
 
   return (
     <div className={style.select}>
+      {label ? <h4 className={style.label}>{label}</h4> : ''}
       <div className={style.current} onClick={toggleDropdown}>
         <span className={style.title}>{current}</span>
         {dropdown ? (
