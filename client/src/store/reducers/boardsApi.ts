@@ -87,6 +87,14 @@ export const boardsApi = createApi({
       }),
       invalidatesTags: ['Board'],
     }),
+    updateTask: builder.mutation({
+      query: ({ boardId, columnId, taskId, task }) => ({
+        url: `/tasks?boardId=${boardId}&columnId=${columnId}&taskId=${taskId}`,
+        method: 'PATCH',
+        body: task,
+      }),
+      invalidatesTags: ['Board'],
+    }),
     deleteTask: builder.mutation({
       query: ({ boardId, columnId, taskId }) => ({
         url: `/tasks?boardId=${boardId}&columnId=${columnId}&taskId=${taskId}`,
@@ -119,6 +127,7 @@ export const {
   useDeleteColumnMutation,
   // Tasks
   useAddTaskMutation,
+  useUpdateTaskMutation,
   useDeleteTaskMutation,
   // Subtasks
   useAddSubtaskMutation,
