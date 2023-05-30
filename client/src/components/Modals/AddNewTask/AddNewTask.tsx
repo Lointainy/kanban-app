@@ -1,5 +1,8 @@
 import { useState } from 'react'
 
+/* Store */
+import { useAddTaskMutation } from '@store/reducers/boardsApi'
+
 /* Styles */
 import style from './AddNewTask.module.scss'
 
@@ -10,7 +13,6 @@ import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import { defaultStatusData } from '@utils/default'
 
 /* Components */
-import { useAddTaskMutation } from '@/store/reducers/boardsApi'
 import { Input, SelectDropdown, TextArea } from '@components'
 import { CreateItemField } from '@components/Board'
 
