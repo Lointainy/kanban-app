@@ -61,6 +61,7 @@ const AddNewBoard: React.FC = ({ closeModal }) => {
 
   return (
     <form onSubmit={handleSubmit} className={style.form}>
+      <h2 className={style.title}>Add new Board</h2>
       <Input
         value={board.name}
         name={'name'}
