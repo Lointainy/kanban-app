@@ -120,7 +120,7 @@ const AddNewTask: React.FC = ({ id, columns, closeModal }) => {
             )
           })}
         </ul>
-        <CreateItemField title={'column'} createItem={handleCreateSubtask} />
+        <CreateItemField title={'task'} createItem={handleCreateSubtask} />
       </div>
 
       {/* Status select dropdown*/}
