@@ -13,6 +13,7 @@ import ViewTask from './ViewTask/ViewTask'
 
 /* Styles */
 import DeleteColumn from './DeleteColumn/DeleteColumn'
+import EditColumn from './EditColumn/EditColumn'
 import style from './index.module.scss'
 
 const Modals: React.FC = () => {
@@ -47,6 +48,7 @@ const Modals: React.FC = () => {
             {modal.name == 'AddNewBoard' && <AddNewBoard closeModal={handleClose} />}
             {modal.name == 'EditBoard' && <EditBoard board={board} closeModal={handleClose} />}
             {modal.name == 'DeleteBoard' && <DeleteBoard id={board._id} name={board.name} />}
+            {modal.name == 'EditColumn' && <EditColumn id={activeId} column={column} closeModal={handleClose} />}
             {modal.name == 'DeleteColumn' && <DeleteColumn id={activeId} name={column.name} />}
           </div>
         </div>
