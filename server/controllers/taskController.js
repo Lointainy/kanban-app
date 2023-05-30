@@ -21,8 +21,7 @@ const createTask = async (req, res) => {
 		}
 
 		const task = {
-			...newTask,
-			subtasks: []
+			...newTask
 		}
 
 		const update = {
