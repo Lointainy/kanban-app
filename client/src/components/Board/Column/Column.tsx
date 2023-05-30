@@ -42,7 +42,8 @@ const Column: React.FC = ({ column }) => {
   }
 
   function handleEditColumn() {
-    console.log('edit')
+    dispatch(openModal({ name: 'EditColumn' }))
+    dispatch(setActiveColumn(column))
   }
 
   return (
