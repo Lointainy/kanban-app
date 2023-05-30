@@ -43,7 +43,7 @@ const Modals: React.FC = () => {
               <AddNewTask id={activeId} columns={board.columns} closeModal={handleClose} />
             )}
             {modal.name == 'ViewTask' && <ViewTask task={task} id={activeId} />}
-            {modal.name == 'EditTask' && <EditTask task={modal.data} />}
+            {modal.name == 'EditTask' && <EditTask task={task} id={activeId} closeModal={handleClose} />}
             {modal.name == 'DeleteTask' && <DeleteTask id={activeId} name={task.title} />}
             {modal.name == 'AddNewBoard' && <AddNewBoard closeModal={handleClose} />}
             {modal.name == 'EditBoard' && <EditBoard board={board} closeModal={handleClose} />}
