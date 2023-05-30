@@ -38,7 +38,9 @@ const Modals: React.FC = () => {
       {modal.status && (
         <div className={style.overlay} onClick={handleClose}>
           <div className={style.modal} onClick={(e) => e.stopPropagation()}>
-            {modal.name == 'AddNewTask' && <AddNewTask />}
+            {modal.name == 'AddNewTask' && (
+              <AddNewTask id={activeId} columns={board.columns} closeModal={handleClose} />
+            )}
             {modal.name == 'ViewTask' && <ViewTask task={task} id={activeId} />}
             {modal.name == 'EditTask' && <EditTask task={modal.data} />}
             {modal.name == 'DeleteTask' && <DeleteTask id={activeId} name={task.title} />}
