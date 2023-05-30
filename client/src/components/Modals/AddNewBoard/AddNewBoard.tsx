@@ -19,7 +19,7 @@ const AddNewBoard: React.FC = ({ closeModal }) => {
   const [addBoard] = useAddBoardMutation()
 
   /* OnChange Inputs */
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setBoard({ ...board, [name]: value })
   }
