@@ -15,6 +15,7 @@
 .area {
   padding: 0.5rem 1rem;
   border-radius: $border-radius;
+  background: color(fieldBg);
   color: color(title);
   border: 1px solid color(lineBg);
   resize: vertical;
