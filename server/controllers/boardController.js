@@ -5,11 +5,17 @@ const getBoards = async (req, res) => {
 
 	try {
 		let userData = await Board.findOne({ user_id })
-		let boards = userData.boards
+		let boards = []
+
+		if (userData === null) {
+			await Board.create({ boards: [{ name: 'First board' }], user_id })
+		}
 
 		if (userData) {
+			userData = await Board.findOne({ user_id })
+			boards = userData.boards
 			res.status(200).json(boards)
-		} else {
+		} else if (!boards.length) {
 			res.status(404).json({ msg: `No Boards` })
 		}
 	} catch (error) {
