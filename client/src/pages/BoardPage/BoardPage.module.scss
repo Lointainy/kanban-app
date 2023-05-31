@@ -15,3 +15,16 @@
   background: color(lineBg);
   border-radius: $border-radius;
 }
+
+@include media(md, mx) {
+  .columns {
+    grid-row: 2;
+    grid-auto-flow: row;
+    grid-template-columns: 1fr;
+    height: auto;
+    row-gap: 1rem;
+  }
+  .add {
+    grid-row: 1;
+  }
+}

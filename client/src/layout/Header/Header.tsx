@@ -18,6 +18,7 @@ import { DropdownOptions } from '@components'
 /* Logo */
 import darkLogo from '@/assets/images/logo/dark-theme-logo.svg'
 import lightLogo from '@/assets/images/logo/light-theme-logo.svg'
+import mobileLogo from '@/assets/images/logo/logo.svg'
 
 const Header: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -75,17 +76,20 @@ const Header: React.FC = () => {
   return (
     <div className={style.header}>
       <div className={style.logo}>
-        <NavLink to={'/'}>
+        <NavLink to={'/'} className={style.logo__desktop}>
           {theme == 'dark-theme' && <img src={`${darkLogo}`} alt="logo" />}
           {theme == 'light-theme' && <img src={`${lightLogo}`} alt="logo" />}
+        </NavLink>
+        <NavLink to={'/'} className={style.logo__mobile}>
+          <img src={`${mobileLogo}`} alt="logo" />
         </NavLink>
       </div>
 
       <h1 className={style.title}>{pathname.includes('/board/') && board.name}</h1>
 
       <button className={style.btn} onClick={() => handleClickOption('AddNewTask')}>
-        <Icon icon="plus" />
-        <span>Add new task</span>
+        <Icon icon="plus" className={style.btn__icon} />
+        <span className={style.btn__span}>Add new task</span>
       </button>
       <DropdownOptions options={options} fieldStyle="invert" />
     </div>

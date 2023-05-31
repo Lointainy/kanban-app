@@ -124,3 +124,12 @@
     transition: $animate;
   }
 }
+
+@include media(md, mx) {
+  .sidebar {
+    z-index: 100;
+    width: calc(100% - 4rem);
+    height: 100%;
+    position: absolute;
+  }
+}

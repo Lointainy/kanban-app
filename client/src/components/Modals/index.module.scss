@@ -24,3 +24,10 @@
   overflow-y: scroll;
   max-height: 600px;
 }
+
+/* Media */
+@include media(sm, mx) {
+  .modal {
+    width: auto;
+  }
+}

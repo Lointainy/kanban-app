@@ -20,10 +20,12 @@
   align-items: center;
   border-right: 1px solid color(lineBg);
 
-  img {
-    &:hover {
-      cursor: pointer;
-    }
+  &:hover {
+    cursor: pointer;
+  }
+
+  &__mobile {
+    display: none;
   }
 }
 
@@ -91,6 +93,26 @@
         opacity: 1;
         color: $color-red-hover;
       }
+    }
+  }
+}
+
+@include media(md, mx) {
+  .header {
+    grid-template-columns: max-content 1fr 3rem max-content;
+  }
+  .logo {
+    border-right: none;
+    &__desktop {
+      display: none;
+    }
+    &__mobile {
+      display: block;
+    }
+  }
+  .btn {
+    &__span {
+      display: none;
     }
   }
 }
