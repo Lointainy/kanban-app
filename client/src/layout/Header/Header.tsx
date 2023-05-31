@@ -5,6 +5,7 @@ import { NavLink, useLocation } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '@hooks/useRedux'
 import { logout } from '@store/reducers/authSlice'
 import { openModal } from '@store/reducers/modalSlice'
+import { toggleSidebar } from '@store/reducers/uiSlice'
 
 /* Styles */
 import style from './Header.module.scss'
@@ -80,9 +81,9 @@ const Header: React.FC = () => {
           {theme == 'dark-theme' && <img src={`${darkLogo}`} alt="logo" />}
           {theme == 'light-theme' && <img src={`${lightLogo}`} alt="logo" />}
         </NavLink>
-        <NavLink to={'/'} className={style.logo__mobile}>
+        <div className={style.logo__mobile} onClick={() => dispatch(toggleSidebar())}>
           <img src={`${mobileLogo}`} alt="logo" />
-        </NavLink>
+        </div>
       </div>
 
       <h1 className={style.title}>{pathname.includes('/board/') && board.name}</h1>
