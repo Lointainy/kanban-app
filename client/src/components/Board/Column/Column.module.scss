@@ -9,7 +9,7 @@
 
 .head {
   display: grid;
-  grid-template-columns: 1fr 24px 24px;
+  grid-template-columns: 1fr 24px 20px;
   grid-auto-rows: 1.5rem;
   column-gap: 0.5rem;
   grid-auto-flow: column;
@@ -31,4 +31,23 @@
 .drag {
   border-radius: $border-radius;
   outline: 2px solid $color-main-purple;
+}
+
+.tasks_mobile {
+  display: none;
+}
+
+.empty {
+  @include body-l;
+  text-align: center;
+  color: color(subTitle);
+}
+
+@include media(md, mx) {
+  .tasks_desktop {
+    display: none;
+  }
+  .tasks_mobile {
+    display: block;
+  }
 }
