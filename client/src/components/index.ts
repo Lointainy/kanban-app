@@ -8,5 +8,6 @@ export { default as Input } from './Standard/Input/Input'
 export { default as TextArea } from './Standard/TextArea/TextArea'
 
 /* DropDown */
+export { default as DropdownList } from './DropdownList/DropdownList'
 export { default as DropdownOptions } from './DropdownOptions/DropdownOptions'
 export { default as SelectDropdown } from './SelectDropdown/SelectDropdown'
