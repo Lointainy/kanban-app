@@ -61,7 +61,7 @@ export default function CreateItemField(props: Props) {
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       if (formRef.current && !formRef.current.contains(event.target as Node)) {
-        setToggle(false)
+        handleClose()
       }
     }
     document.addEventListener('mousedown', handleOutsideClick)
