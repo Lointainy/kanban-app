@@ -1,0 +1,31 @@
+@import '@styles/main';
+
+.dropdown_list {
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 1rem;
+}
+
+.select_container {
+  color: color(subTitle);
+  display: grid;
+  justify-content: space-between;
+  grid-template-columns: 1fr 16px;
+  grid-auto-flow: column;
+  align-items: center;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.label {
+  @include body-m;
+  text-transform: uppercase;
+}
+
+.icon {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
