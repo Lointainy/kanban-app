@@ -11,7 +11,7 @@ import style from './Column.module.scss'
 
 /* Components */
 import { openModal } from '@/store/reducers/modalSlice'
-import { DropdownOptions } from '@components'
+import { DropdownList, DropdownOptions } from '@components'
 import { CreateItemField, Task } from '@components/Board'
 import { Draggable } from 'react-beautiful-dnd'
 
@@ -53,23 +53,50 @@ const Column: React.FC = ({ column }) => {
         <CreateItemField title={'task'} createItem={handleCreate} dropdown />
         <DropdownOptions options={options} fieldStyle={'invert'} buttonStyle={'invert'} />
       </div>
+      {column?.tasks.length ? (
+        <div className={style.tasks_mobile}>
+          <DropdownList label={'Tasks'}>
+            <div className={style.tasks}>
+              {column?.tasks.map((task, index) => {
+                return (
+                  <Draggable key={task._id} draggableId={task._id} index={index}>
+                    {(provided, snapshot) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        className={snapshot.isDragging ? style.drag : ''}>
+                        <Task task={task} key={task._id} columnId={column._id} taskIndex={index} onOpen={setActive} />
+                      </div>
+                    )}
+                  </Draggable>
+                )
+              })}
+            </div>
+          </DropdownList>
+        </div>
+      ) : (
+        <div className={style.empty}>The column has no task</div>
+      )}
 
-      <div className={style.tasks}>
-        {column?.tasks.map((task, index) => {
-          return (
-            <Draggable key={task._id} draggableId={task._id} index={index}>
-              {(provided, snapshot) => (
-                <div
-                  ref={provided.innerRef}
-                  {...provided.draggableProps}
-                  {...provided.dragHandleProps}
-                  className={snapshot.isDragging ? style.drag : ''}>
-                  <Task task={task} key={task._id} columnId={column._id} taskIndex={index} onOpen={setActive} />
-                </div>
-              )}
-            </Draggable>
-          )
-        })}
+      <div className={style.tasks_desktop}>
+        <div className={style.tasks}>
+          {column?.tasks.map((task, index) => {
+            return (
+              <Draggable key={task._id} draggableId={task._id} index={index}>
+                {(provided, snapshot) => (
+                  <div
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                    className={snapshot.isDragging ? style.drag : ''}>
+                    <Task task={task} key={task._id} columnId={column._id} taskIndex={index} onOpen={setActive} />
+                  </div>
+                )}
+              </Draggable>
+            )
+          })}
+        </div>
       </div>
     </div>
   )
